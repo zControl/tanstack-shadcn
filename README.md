@@ -1,15 +1,9 @@
-# React Starter
+# FamBoard
 
-## Tech Stack
+A family board to track chores, allowances, and activities.
 
-Vite
-React
-TailwindCSS
-Post CSS
-ESLint
-Prettier
-Tanstack Router
-Tanstack Query
-Shadcn/UI
-React Hook Form
-Zod
+## Chore Chart
+
+## Rewards
+
+## Screen Time

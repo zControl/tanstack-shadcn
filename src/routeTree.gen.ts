@@ -14,7 +14,11 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as DocsImport } from './routes/_docs'
+import { Route as AppImport } from './routes/_app'
 import { Route as DocsDocsImport } from './routes/_docs.docs'
+import { Route as AppChoresImport } from './routes/_app/chores'
+import { Route as AppAllowanceImport } from './routes/_app/allowance'
+import { Route as AppActivitiesImport } from './routes/_app/activities'
 import { Route as examplesExamplesImport } from './routes/(examples)/_examples'
 import { Route as examplesExamplesExamplesImport } from './routes/(examples)/_examples/examples'
 
@@ -62,6 +66,11 @@ const DocsRoute = DocsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AppRoute = AppImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
@@ -72,6 +81,24 @@ const DocsDocsRoute = DocsDocsImport.update({
   id: '/docs',
   path: '/docs',
   getParentRoute: () => DocsRoute,
+} as any)
+
+const AppChoresRoute = AppChoresImport.update({
+  id: '/chores',
+  path: '/chores',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAllowanceRoute = AppAllowanceImport.update({
+  id: '/allowance',
+  path: '/allowance',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppActivitiesRoute = AppActivitiesImport.update({
+  id: '/activities',
+  path: '/activities',
+  getParentRoute: () => AppRoute,
 } as any)
 
 const examplesExamplesRoute = examplesExamplesImport.update({
@@ -116,6 +143,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppImport
+      parentRoute: typeof rootRoute
+    }
     '/_docs': {
       id: '/_docs'
       path: ''
@@ -158,6 +192,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof examplesExamplesImport
       parentRoute: typeof examplesRoute
     }
+    '/_app/activities': {
+      id: '/_app/activities'
+      path: '/activities'
+      fullPath: '/activities'
+      preLoaderRoute: typeof AppActivitiesImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/allowance': {
+      id: '/_app/allowance'
+      path: '/allowance'
+      fullPath: '/allowance'
+      preLoaderRoute: typeof AppAllowanceImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/chores': {
+      id: '/_app/chores'
+      path: '/chores'
+      fullPath: '/chores'
+      preLoaderRoute: typeof AppChoresImport
+      parentRoute: typeof AppImport
+    }
     '/_docs/docs': {
       id: '/_docs/docs'
       path: '/docs'
@@ -190,6 +245,20 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
+
+interface AppRouteChildren {
+  AppActivitiesRoute: typeof AppActivitiesRoute
+  AppAllowanceRoute: typeof AppAllowanceRoute
+  AppChoresRoute: typeof AppChoresRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppActivitiesRoute: AppActivitiesRoute,
+  AppAllowanceRoute: AppAllowanceRoute,
+  AppChoresRoute: AppChoresRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface DocsRouteChildren {
   DocsDocsRoute: typeof DocsDocsRoute
@@ -234,6 +303,9 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
+  '/activities': typeof AppActivitiesRoute
+  '/allowance': typeof AppAllowanceRoute
+  '/chores': typeof AppChoresRoute
   '/docs': typeof DocsDocsRoute
   '/examples': typeof examplesExamplesExamplesRoute
   '/form': typeof examplesExamplesFormLazyRoute
@@ -246,6 +318,9 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
+  '/activities': typeof AppActivitiesRoute
+  '/allowance': typeof AppAllowanceRoute
+  '/chores': typeof AppChoresRoute
   '/docs': typeof DocsDocsRoute
   '/examples': typeof examplesExamplesExamplesRoute
   '/form': typeof examplesExamplesFormLazyRoute
@@ -255,12 +330,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/_app': typeof AppRouteWithChildren
   '/_docs': typeof DocsRouteWithChildren
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
   '/(examples)': typeof examplesRouteWithChildren
   '/(examples)/_examples': typeof examplesExamplesRouteWithChildren
+  '/_app/activities': typeof AppActivitiesRoute
+  '/_app/allowance': typeof AppAllowanceRoute
+  '/_app/chores': typeof AppChoresRoute
   '/_docs/docs': typeof DocsDocsRoute
   '/(examples)/_examples/examples': typeof examplesExamplesExamplesRoute
   '/(examples)/_examples/form': typeof examplesExamplesFormLazyRoute
@@ -275,6 +354,9 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/activities'
+    | '/allowance'
+    | '/chores'
     | '/docs'
     | '/examples'
     | '/form'
@@ -286,6 +368,9 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/activities'
+    | '/allowance'
+    | '/chores'
     | '/docs'
     | '/examples'
     | '/form'
@@ -293,12 +378,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_app'
     | '/_docs'
     | '/privacy'
     | '/status'
     | '/terms'
     | '/(examples)'
     | '/(examples)/_examples'
+    | '/_app/activities'
+    | '/_app/allowance'
+    | '/_app/chores'
     | '/_docs/docs'
     | '/(examples)/_examples/examples'
     | '/(examples)/_examples/form'
@@ -308,6 +397,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  AppRoute: typeof AppRouteWithChildren
   DocsRoute: typeof DocsRouteWithChildren
   PrivacyLazyRoute: typeof PrivacyLazyRoute
   StatusLazyRoute: typeof StatusLazyRoute
@@ -317,6 +407,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  AppRoute: AppRouteWithChildren,
   DocsRoute: DocsRouteWithChildren,
   PrivacyLazyRoute: PrivacyLazyRoute,
   StatusLazyRoute: StatusLazyRoute,
@@ -337,6 +428,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_app",
         "/_docs",
         "/privacy",
         "/status",
@@ -346,6 +438,14 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/_app": {
+      "filePath": "_app.tsx",
+      "children": [
+        "/_app/activities",
+        "/_app/allowance",
+        "/_app/chores"
+      ]
     },
     "/_docs": {
       "filePath": "_docs.tsx",
@@ -376,6 +476,18 @@ export const routeTree = rootRoute
         "/(examples)/_examples/form",
         "/(examples)/_examples/query"
       ]
+    },
+    "/_app/activities": {
+      "filePath": "_app/activities.tsx",
+      "parent": "/_app"
+    },
+    "/_app/allowance": {
+      "filePath": "_app/allowance.tsx",
+      "parent": "/_app"
+    },
+    "/_app/chores": {
+      "filePath": "_app/chores.tsx",
+      "parent": "/_app"
     },
     "/_docs/docs": {
       "filePath": "_docs.docs.tsx",

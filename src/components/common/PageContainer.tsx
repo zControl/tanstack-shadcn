@@ -21,7 +21,9 @@ const PageContainer = ({
         {description && <meta name="description" content={description} />}
         {keywords && <meta name="keywords" content={keywords} />}
       </Helmet>
-      <main className="max-w-7xl mx-auto p-4 md:p-6 lg:p-8">{children}</main>
+      <main className="max-w-8xl mx-auto p-4 md:p-6 lg:p-8 min-h-96 border border-blue-500">
+        {children}
+      </main>
     </>
   );
 };
