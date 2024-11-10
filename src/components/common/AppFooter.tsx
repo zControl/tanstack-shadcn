@@ -1,5 +1,7 @@
 import { CustomLink } from "@/components/ui/custom-link";
 import { AnvilIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { Link } from "@tanstack/react-router";
 
 const AppFooter = () => {
   return (
@@ -13,8 +15,12 @@ const AppFooter = () => {
         </div>
         <div className="flex justify-center items-center space-x-4 py-2">
           <div className="flex items-center">
-            <AnvilIcon />
-            <span className="ml-2">UI</span>
+            <Button asChild variant="link" size={"icon"}>
+              <Link to="/">
+                <AnvilIcon />
+              </Link>
+            </Button>
+            <span className="m-2">UI</span>
           </div>
           <span className="text-sm">&copy; 2024 All rights reserved.</span>
         </div>

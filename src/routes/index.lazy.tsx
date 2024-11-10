@@ -1,7 +1,5 @@
 import { PageContainer } from "@/components/common/PageContainer";
-import { Button } from "@/components/ui/button";
 import { LandingHeader } from "@/features/landing/components/LandingHeader";
-import { useToast } from "@/hooks/use-toast";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
@@ -9,7 +7,6 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function App() {
-  const { toast } = useToast();
   return (
     <>
       <LandingHeader />
@@ -18,17 +15,9 @@ function App() {
         description="First page when you visit."
         keywords="app, landing, page, first, welcome"
       >
-        <h1>Landing Page</h1>
-        <Button
-          onClick={() => {
-            toast({
-              title: "Sample Toast Title",
-              description: "Sample Toast Description",
-            });
-          }}
-        >
-          Toast
-        </Button>
+        <div>HERO</div>
+        <div>CARDS</div>
+        <div>SUMMARY</div>
       </PageContainer>
     </>
   );

@@ -1,6 +1,14 @@
-import DocsLayout from "@/components/layout/DocsLayout";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_docs")({
   component: DocsLayout,
 });
+
+function DocsLayout() {
+  return (
+    <>
+      <div>Docs Layout</div>
+      <Outlet />
+    </>
+  );
+}
