@@ -13,8 +13,11 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
 import { Route as DocsImport } from './routes/_docs'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as DocsDocsImport } from './routes/_docs.docs'
+import { Route as AuthDashboardImport } from './routes/_auth.dashboard'
 import { Route as examplesExamplesImport } from './routes/(examples)/_examples'
 import { Route as examplesExamplesExamplesImport } from './routes/(examples)/_examples/examples'
 
@@ -57,8 +60,19 @@ const PrivacyLazyRoute = PrivacyLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/privacy.lazy').then((d) => d.Route))
 
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DocsRoute = DocsImport.update({
   id: '/_docs',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -72,6 +86,12 @@ const DocsDocsRoute = DocsDocsImport.update({
   id: '/docs',
   path: '/docs',
   getParentRoute: () => DocsRoute,
+} as any)
+
+const AuthDashboardRoute = AuthDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const examplesExamplesRoute = examplesExamplesImport.update({
@@ -116,11 +136,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_docs': {
       id: '/_docs'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof DocsImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
     '/privacy': {
@@ -158,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof examplesExamplesImport
       parentRoute: typeof examplesRoute
     }
+    '/_auth/dashboard': {
+      id: '/_auth/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthDashboardImport
+      parentRoute: typeof AuthImport
+    }
     '/_docs/docs': {
       id: '/_docs/docs'
       path: '/docs'
@@ -190,6 +231,16 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
+
+interface AuthRouteChildren {
+  AuthDashboardRoute: typeof AuthDashboardRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthDashboardRoute: AuthDashboardRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface DocsRouteChildren {
   DocsDocsRoute: typeof DocsDocsRoute
@@ -231,9 +282,11 @@ const examplesRouteWithChildren = examplesRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof examplesExamplesRouteWithChildren
   '': typeof DocsRouteWithChildren
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
+  '/dashboard': typeof AuthDashboardRoute
   '/docs': typeof DocsDocsRoute
   '/examples': typeof examplesExamplesExamplesRoute
   '/form': typeof examplesExamplesFormLazyRoute
@@ -243,9 +296,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof examplesExamplesRouteWithChildren
   '': typeof DocsRouteWithChildren
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
+  '/dashboard': typeof AuthDashboardRoute
   '/docs': typeof DocsDocsRoute
   '/examples': typeof examplesExamplesExamplesRoute
   '/form': typeof examplesExamplesFormLazyRoute
@@ -255,12 +310,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/_docs': typeof DocsRouteWithChildren
+  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyLazyRoute
   '/status': typeof StatusLazyRoute
   '/terms': typeof TermsLazyRoute
   '/(examples)': typeof examplesRouteWithChildren
   '/(examples)/_examples': typeof examplesExamplesRouteWithChildren
+  '/_auth/dashboard': typeof AuthDashboardRoute
   '/_docs/docs': typeof DocsDocsRoute
   '/(examples)/_examples/examples': typeof examplesExamplesExamplesRoute
   '/(examples)/_examples/form': typeof examplesExamplesFormLazyRoute
@@ -272,9 +330,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/login'
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/dashboard'
     | '/docs'
     | '/examples'
     | '/form'
@@ -283,9 +343,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/login'
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/dashboard'
     | '/docs'
     | '/examples'
     | '/form'
@@ -293,12 +355,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/_docs'
+    | '/login'
     | '/privacy'
     | '/status'
     | '/terms'
     | '/(examples)'
     | '/(examples)/_examples'
+    | '/_auth/dashboard'
     | '/_docs/docs'
     | '/(examples)/_examples/examples'
     | '/(examples)/_examples/form'
@@ -308,7 +373,9 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  AuthRoute: typeof AuthRouteWithChildren
   DocsRoute: typeof DocsRouteWithChildren
+  LoginRoute: typeof LoginRoute
   PrivacyLazyRoute: typeof PrivacyLazyRoute
   StatusLazyRoute: typeof StatusLazyRoute
   TermsLazyRoute: typeof TermsLazyRoute
@@ -317,7 +384,9 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  AuthRoute: AuthRouteWithChildren,
   DocsRoute: DocsRouteWithChildren,
+  LoginRoute: LoginRoute,
   PrivacyLazyRoute: PrivacyLazyRoute,
   StatusLazyRoute: StatusLazyRoute,
   TermsLazyRoute: TermsLazyRoute,
@@ -337,7 +406,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_auth",
         "/_docs",
+        "/login",
         "/privacy",
         "/status",
         "/terms",
@@ -347,11 +418,20 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/dashboard"
+      ]
+    },
     "/_docs": {
       "filePath": "_docs.tsx",
       "children": [
         "/_docs/docs"
       ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/privacy": {
       "filePath": "privacy.lazy.tsx"
@@ -376,6 +456,10 @@ export const routeTree = rootRoute
         "/(examples)/_examples/form",
         "/(examples)/_examples/query"
       ]
+    },
+    "/_auth/dashboard": {
+      "filePath": "_auth.dashboard.tsx",
+      "parent": "/_auth"
     },
     "/_docs/docs": {
       "filePath": "_docs.docs.tsx",

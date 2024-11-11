@@ -6,10 +6,14 @@ import { ErrorPage } from "@/components/common/ErrorPage";
 import { AppFooter } from "@/components/common/AppFooter";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthContext } from "@/utils/auth";
 
-export const Route = createRootRouteWithContext<{
+interface AppRouterContext {
+  auth: AuthContext;
   queryClient: QueryClient;
-}>()({
+}
+
+export const Route = createRootRouteWithContext<AppRouterContext>()({
   component: RootLayout,
   notFoundComponent: NotFound,
   errorComponent: ErrorPage,
