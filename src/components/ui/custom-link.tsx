@@ -4,11 +4,12 @@ import { cn } from "@/lib/utils";
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   size?: "default" | "sm" | "lg" | "huge";
+  hoverColor?: "default" | "primary" | "secondary";
   inline?: boolean;
 }
 
 const BasicLinkComponent = React.forwardRef<HTMLAnchorElement, BasicLinkProps>(
-  ({ size = "md", inline = false, ...props }, ref) => {
+  ({ size = "md", inline = false, hoverColor = "default", ...props }, ref) => {
     const textSizeClass = {
       default: "text-base",
       sm: "text-xs",
@@ -16,9 +17,16 @@ const BasicLinkComponent = React.forwardRef<HTMLAnchorElement, BasicLinkProps>(
       huge: "text-3xl",
     }[size];
 
+    const hoverColorClass = {
+      default: "hover:text-highlight",
+      primary: "hover:text-primary",
+      secondary: "hover:text-secondary",
+    }[hoverColor];
+
     const className = cn(
       textSizeClass,
-      "hover:text-highlight hover:tracking-wide",
+      hoverColorClass,
+      "hover:tracking-wide",
       inline
         ? "text-primary hover:tracking-wide text-lg hover:tracking-normal hover:underline"
         : "px-2",
