@@ -1,8 +1,8 @@
 interface HeaderContainerProps {
-  logo: React.ReactNode;
-  navigation: React.ReactNode;
-  mobileMenu: React.ReactNode;
-  actions: React.ReactNode;
+  logo?: React.ReactNode;
+  navigation?: React.ReactNode;
+  mobileMenu?: React.ReactNode;
+  actions?: React.ReactNode;
 }
 const HeaderContainer = ({
   logo,

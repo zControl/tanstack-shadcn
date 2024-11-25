@@ -1,7 +1,9 @@
-export const ErrorPage = (message: string) => {
+import { PageContainer } from "./PageContainer";
+
+export const ErrorPage = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-2xl font-bold">{message}</h1>
-    </div>
+    <PageContainer title="Error Page" description="Error Page">
+      <div>Manure Occurs...There was an error</div>
+    </PageContainer>
   );
 };
