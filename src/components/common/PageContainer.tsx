@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 
-interface PageContainerProps {
+export interface PageContainerProps {
   children: React.ReactNode;
   title?: string;
   description?: string;
@@ -24,7 +24,7 @@ const PageContainer = ({
         {description && <meta name="description" content={description} />}
         {keywords && <meta name="keywords" content={keywords} />}
       </Helmet>
-      <main className={cn("max-w-7xl mx-auto p-2 md:p-4 lg:p-6", className)}>
+      <main className={cn("w-full p-2 md:p-4 lg:p-6 flex-1", className)}>
         {children}
       </main>
     </>

@@ -1,3 +1,6 @@
+import { AppLogo } from "@/components/common/AppLogo";
+import { SidebarLayout } from "@/components/common/SidebarLayout";
+import { CustomLink } from "@/components/ui/custom-link";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import {
@@ -84,7 +88,33 @@ function ExamplesLayout() {
     <>
       <SidebarProvider>
         <ExamplesSidebar />
-        <Outlet />
+        <SidebarLayout
+          logo={
+            <>
+              <SidebarTrigger />
+              <AppLogo />
+            </>
+          }
+          mobileMenu={<div className="text-primary-foreground">Menu</div>}
+          navigation={
+            <div className="flex space-x-4">
+              <CustomLink to="/examples" size="lg">
+                Examples
+              </CustomLink>
+              <CustomLink to="/query" size="lg">
+                Query
+              </CustomLink>
+              <CustomLink to="/form" size="lg">
+                Form
+              </CustomLink>
+            </div>
+          }
+          actions={<div>Actions</div>}
+          title="Examples Page"
+          description="Examples Page"
+        >
+          <Outlet />
+        </SidebarLayout>
       </SidebarProvider>
     </>
   );

@@ -1,6 +1,6 @@
 import { ThemeToggle } from "./theme/ThemeToggle";
 
-interface HeaderContainerProps {
+export interface HeaderContainerProps {
   logo?: React.ReactNode;
   navigation?: React.ReactNode;
   mobileMenu?: React.ReactNode;
