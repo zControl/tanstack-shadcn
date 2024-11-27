@@ -1,36 +1,91 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Outlet } from "@tanstack/react-router";
-import { HeaderContainer } from "@/components/common/HeaderContainer";
-import { AppLogo } from "@/components/common/AppLogo";
-import { CustomLink } from "@/components/ui/custom-link";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import {
+  Calendar1Icon,
+  HomeIcon,
+  InboxIcon,
+  SearchIcon,
+  SettingsIcon,
+} from "lucide-react";
 
 export const Route = createFileRoute("/(examples)/_examples")({
   component: ExamplesLayout,
 });
+
+const items = [
+  {
+    title: "Home",
+    url: "#",
+    icon: HomeIcon,
+  },
+  {
+    title: "Inbox",
+    url: "#",
+    icon: InboxIcon,
+  },
+  {
+    title: "Calendar",
+    url: "#",
+    icon: Calendar1Icon,
+  },
+  {
+    title: "Search",
+    url: "#",
+    icon: SearchIcon,
+  },
+  {
+    title: "Settings",
+    url: "#",
+    icon: SettingsIcon,
+  },
+];
+
+function ExamplesSidebar() {
+  return (
+    <Sidebar>
+      <SidebarHeader>HEADER</SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>FOOTER</SidebarFooter>
+    </Sidebar>
+  );
+}
 function ExamplesLayout() {
   return (
-    <div className="flex flex-col h-screen">
-      <HeaderContainer
-        logo={<AppLogo />}
-        mobileMenu={<div className="text-primary-foreground">Menu</div>}
-        navigation={
-          <div className="flex space-x-4">
-            <CustomLink to="/examples" size="lg">
-              Examples
-            </CustomLink>
-            <CustomLink to="/query" size="lg">
-              Query
-            </CustomLink>
-            <CustomLink to="/form" size="lg">
-              Form
-            </CustomLink>
-          </div>
-        }
-        actions={<div>Actions</div>}
-      />
-      <main className="flex-1 overflow-y-auto">
+    <>
+      <SidebarProvider>
+        <ExamplesSidebar />
         <Outlet />
-      </main>
-    </div>
+      </SidebarProvider>
+    </>
   );
 }

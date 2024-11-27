@@ -1,12 +1,11 @@
-import "../globals.css";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { QueryClient } from "@tanstack/react-query";
-import { NotFound } from "@/components/common/NotFound";
 import { ErrorPage } from "@/components/common/ErrorPage";
-import { AppFooter } from "@/components/common/AppFooter";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { NotFound } from "@/components/common/NotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthContext } from "@/utils/auth";
+import { QueryClient } from "@tanstack/react-query";
+import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import "../globals.css";
 
 interface AppRouterContext {
   auth: AuthContext;
@@ -26,7 +25,6 @@ function RootLayout() {
         <div className="flex-1 overflow-y-auto">
           <Outlet />
         </div>
-        <AppFooter />
       </div>
       <TanStackRouterDevtools position="bottom-left" />
       <Toaster />
