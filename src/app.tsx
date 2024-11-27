@@ -1,9 +1,9 @@
-import { routeTree } from "./routeTree.gen";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "./components/common/ThemeProvider";
+import { ThemeProvider } from "./components/common/theme/ThemeProvider";
+import { routeTree } from "./routeTree.gen";
 import { AuthProvider, useAuth } from "./utils/auth";
 
 const queryClient = new QueryClient();
@@ -36,7 +36,7 @@ function AppRouter() {
 export default function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
             <AppRouter />
