@@ -21,11 +21,7 @@ export const Route = createRootRouteWithContext<AppRouterContext>()({
 function RootLayout() {
   return (
     <>
-      <div className="flex flex-col h-screen">
-        <div className="flex-1 overflow-y-auto">
-          <Outlet />
-        </div>
-      </div>
+      <Outlet />
       <TanStackRouterDevtools position="bottom-left" />
       <Toaster />
     </>
