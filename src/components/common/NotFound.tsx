@@ -1,7 +1,9 @@
+import { PageContainer } from "./PageContainer";
+
 export const NotFound = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-2xl font-bold">404 Not Found</h1>
-    </div>
+    <PageContainer title="Not Found" description="Not Found">
+      <div>Not Found</div>
+    </PageContainer>
   );
 };

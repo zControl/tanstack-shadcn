@@ -1,16 +1,17 @@
-import { Colors } from '@/components/ui/colors'
-import { AccordianExample } from '@/examples/AccordianExample'
-import { TileExample } from '@/examples/TileExample'
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { NotFound } from "@/components/common/NotFound";
+import { PageContainer } from "@/components/common/PageContainer";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute('/(app)/_examples/demo_')({
+export const Route = createLazyFileRoute("/(app)/_examples/demo_")({
   component: () => (
-    <>
-      <div className="w-full flex flex-col gap-6">
-        <Colors />
-        <AccordianExample />
-        <TileExample />
-      </div>
-    </>
+    <PageContainer
+      title="Demo - Overview"
+      description="Cookbook of UI components used in the app."
+      keywords="demo, ui, components, cookbook, app"
+    >
+      <div>Hello /_examples/demo!</div>
+      <div>Put links to docs here.</div>
+    </PageContainer>
   ),
-})
+  notFoundComponent: NotFound,
+});

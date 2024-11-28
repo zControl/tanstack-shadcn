@@ -8,11 +8,7 @@ const LandingHeader = () => {
   return (
     <>
       <HeaderContainer
-        logo={
-          <CustomLink to="/">
-            <AppLogo />
-          </CustomLink>
-        }
+        logo={<AppLogo />}
         mobileMenu={<Button variant={"default"}>Menu</Button>}
         navigation={
           <>

@@ -34,6 +34,9 @@ const appPrivacyLazyImport = createFileRoute('/(app)/privacy')()
 const appExamplesQueryLazyImport = createFileRoute('/(app)/_examples/query')()
 const appExamplesFormLazyImport = createFileRoute('/(app)/_examples/form')()
 const appExamplesDemoLazyImport = createFileRoute('/(app)/_examples/demo_')()
+const appExamplesDemoColorsLazyImport = createFileRoute(
+  '/(app)/_examples/demo/colors',
+)()
 const appExamplesDemoBasicLazyImport = createFileRoute(
   '/(app)/_examples/demo/basic',
 )()
@@ -142,6 +145,16 @@ const authAuthDashboardRoute = authAuthDashboardImport.update({
   path: '/dashboard',
   getParentRoute: () => authAuthRoute,
 } as any)
+
+const appExamplesDemoColorsLazyRoute = appExamplesDemoColorsLazyImport
+  .update({
+    id: '/demo/colors',
+    path: '/demo/colors',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.colors.lazy').then((d) => d.Route),
+  )
 
 const appExamplesDemoBasicLazyRoute = appExamplesDemoBasicLazyImport
   .update({
@@ -301,6 +314,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesDemoBasicLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_examples/demo/colors': {
+      id: '/(app)/_examples/demo/colors'
+      path: '/demo/colors'
+      fullPath: '/demo/colors'
+      preLoaderRoute: typeof appExamplesDemoColorsLazyImport
+      parentRoute: typeof appExamplesImport
+    }
     '/(test)/test/a/b/c': {
       id: '/(test)/test/a/b/c'
       path: '/test/a/b/c'
@@ -318,6 +338,7 @@ interface appExamplesRouteChildren {
   appExamplesFormLazyRoute: typeof appExamplesFormLazyRoute
   appExamplesQueryLazyRoute: typeof appExamplesQueryLazyRoute
   appExamplesDemoBasicLazyRoute: typeof appExamplesDemoBasicLazyRoute
+  appExamplesDemoColorsLazyRoute: typeof appExamplesDemoColorsLazyRoute
 }
 
 const appExamplesRouteChildren: appExamplesRouteChildren = {
@@ -325,6 +346,7 @@ const appExamplesRouteChildren: appExamplesRouteChildren = {
   appExamplesFormLazyRoute: appExamplesFormLazyRoute,
   appExamplesQueryLazyRoute: appExamplesQueryLazyRoute,
   appExamplesDemoBasicLazyRoute: appExamplesDemoBasicLazyRoute,
+  appExamplesDemoColorsLazyRoute: appExamplesDemoColorsLazyRoute,
 }
 
 const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
@@ -386,6 +408,7 @@ export interface FileRoutesByFullPath {
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -404,6 +427,7 @@ export interface FileRoutesByTo {
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -427,6 +451,7 @@ export interface FileRoutesById {
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
   '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/(app)/_examples/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -447,6 +472,7 @@ export interface FileRouteTypes {
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
+    | '/demo/colors'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -464,6 +490,7 @@ export interface FileRouteTypes {
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
+    | '/demo/colors'
     | '/test/a/b/c'
   id:
     | '__root__'
@@ -485,6 +512,7 @@ export interface FileRouteTypes {
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
     | '/(app)/_examples/demo/basic'
+    | '/(app)/_examples/demo/colors'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
@@ -552,7 +580,8 @@ export const routeTree = rootRoute
         "/(app)/_examples/demo_",
         "/(app)/_examples/form",
         "/(app)/_examples/query",
-        "/(app)/_examples/demo/basic"
+        "/(app)/_examples/demo/basic",
+        "/(app)/_examples/demo/colors"
       ]
     },
     "/(auth)": {
@@ -615,6 +644,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_examples/demo/basic": {
       "filePath": "(app)/_examples/demo.basic.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/colors": {
+      "filePath": "(app)/_examples/demo.colors.lazy.tsx",
       "parent": "/(app)/_examples"
     },
     "/(test)/test/a/b/c": {

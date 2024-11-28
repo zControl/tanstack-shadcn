@@ -1,4 +1,6 @@
+import { CheckCircle2, CopyIcon } from "lucide-react";
 import { useState } from "react";
+import { Button } from "./button";
 import { Input } from "./input";
 import { Label } from "./label";
 import {
@@ -31,6 +33,7 @@ const ColorSelector = () => {
   const [hue, setHue] = useState(0);
   const [saturation, setSaturation] = useState(100);
   const [lightness, setLightness] = useState(50);
+  const [showCopyConfirm, setShowCopyConfirm] = useState(false);
 
   const handleHueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHue(e.target.valueAsNumber);
@@ -44,16 +47,31 @@ const ColorSelector = () => {
     setLightness(e.target.valueAsNumber);
   };
 
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(hslValues).then(
+      () => {
+        setShowCopyConfirm(true);
+        setTimeout(() => {
+          setShowCopyConfirm(false);
+        }, 2000);
+        console.log(`Copied ${hslValues} to clipboard`);
+      },
+      (err) => {
+        console.error("Copy failed", err);
+      },
+    );
+  };
+
   const hslColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  const hslValues = `${hue} ${saturation}% ${lightness}%`;
 
   return (
-    <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 lg:justify-center">
+    <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 lg:justify-center pb-4">
       <div className="flex flex-col">
         <div
           className="w-64 h-48 rounded-md"
           style={{ backgroundColor: hslColor }}
         />
-        <div>HSL Color: {hslColor}</div>
       </div>
       <div className="w-full space-y-4 my-auto">
         <div className="flex items-center space-x-2">
@@ -97,6 +115,16 @@ const ColorSelector = () => {
             className="w-5/6"
           />
           <CustomLabel>{lightness}%</CustomLabel>
+        </div>
+        <div className="w-1/2 mx-auto flex items-center justify-center space-x-2 border border-accent">
+          <span className="text-lg">{hslColor}</span>
+          <Button variant="ghost" size="icon" onClick={handleCopyClick}>
+            {showCopyConfirm ? (
+              <CheckCircle2 className="text-green-500" />
+            ) : (
+              <CopyIcon />
+            )}
+          </Button>
         </div>
       </div>
     </div>

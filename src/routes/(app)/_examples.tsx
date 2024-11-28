@@ -1,4 +1,5 @@
 import { AppLogo } from "@/components/common/AppLogo";
+import { NotFound } from "@/components/common/NotFound";
 import { SidebarLayout } from "@/components/common/SidebarLayout";
 import { CustomLink } from "@/components/ui/custom-link";
 import {
@@ -33,6 +34,7 @@ import {
 
 export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
+  notFoundComponent: NotFound,
 });
 
 const basics = [
@@ -132,8 +134,6 @@ function ExamplesLayout() {
             </div>
           }
           actions={<div>Actions</div>}
-          title="Examples Page"
-          description="Examples Page"
         >
           <Outlet />
         </SidebarLayout>
