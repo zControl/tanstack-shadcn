@@ -1,8 +1,8 @@
 import { PageContainer } from "@/components/common/PageContainer";
 import { LandingHeader } from "@/features/landing/components/LandingHeader";
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/")({
+export const Route = createFileRoute("/")({
   component: App,
 });
 

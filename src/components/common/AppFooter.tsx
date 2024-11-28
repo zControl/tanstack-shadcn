@@ -8,7 +8,6 @@ const AppFooter = () => {
           <CustomLink to="/terms">Terms</CustomLink>
           <CustomLink to="/privacy">Privacy</CustomLink>
           <CustomLink to="/status">Status</CustomLink>
-          <CustomLink to="/docs">Docs</CustomLink>
         </div>
         <div className="flex justify-center items-center space-x-4 py-2">
           <span className="text-sm">&copy; 2024 All rights reserved.</span>

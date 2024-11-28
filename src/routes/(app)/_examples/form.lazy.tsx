@@ -1,7 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { createLazyFileRoute } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
-export const Route = createLazyFileRoute('/(examples)/_examples/form')({
+export const Route = createLazyFileRoute('/(app)/_examples/form')({
   component: FormExample,
 })
 

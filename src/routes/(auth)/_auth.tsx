@@ -8,7 +8,7 @@ import {
 
 import { useAuth } from "@/utils/auth";
 
-export const Route = createFileRoute("/_auth")({
+export const Route = createFileRoute("/(auth)/_auth")({
   beforeLoad: ({ context, location }) => {
     if (!context.auth.isAuthenticated) {
       throw redirect({

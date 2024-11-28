@@ -8,58 +8,76 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
 import {
-  Calendar1Icon,
+  createFileRoute,
+  Link,
+  Outlet,
+  useLocation,
+} from "@tanstack/react-router";
+import {
+  AppWindowIcon,
+  BookTextIcon,
+  BoxIcon,
+  ComponentIcon,
   HomeIcon,
-  InboxIcon,
-  SearchIcon,
-  SettingsIcon,
+  LetterTextIcon,
+  PaletteIcon,
 } from "lucide-react";
 
-export const Route = createFileRoute("/(examples)/_examples")({
+export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
 });
 
 const basics = [
   {
-    title: "Colors",
-    url: "#",
+    title: "Overview",
+    url: "/demo",
     icon: HomeIcon,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: InboxIcon,
+    title: "Basic",
+    url: "/demo/basic",
+    icon: ComponentIcon,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar1Icon,
+    title: "Colors",
+    url: "/demo/colors",
+    icon: PaletteIcon,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: SearchIcon,
+    title: "Typography",
+    url: "/demo/typography",
+    icon: LetterTextIcon,
   },
   {
-    title: "Settings",
-    url: "#",
-    icon: SettingsIcon,
+    title: "Containers",
+    url: "/demo/containers",
+    icon: BoxIcon,
+  },
+  {
+    title: "Modals",
+    url: "/demo/modals",
+    icon: AppWindowIcon,
+  },
+  {
+    title: "Forms",
+    url: "/demo/forms",
+    icon: BookTextIcon,
   },
 ];
 
 function ExamplesSidebar() {
+  const location = useLocation();
+
   return (
-    <Sidebar>
-      <SidebarHeader>COMPONENT EXAMPLES</SidebarHeader>
+    <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Basics</SidebarGroupLabel>
@@ -67,11 +85,14 @@ function ExamplesSidebar() {
             <SidebarMenu>
               {basics.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location.pathname === item.url}
+                  >
+                    <Link to={item.url}>
+                      {<item.icon />}
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -80,6 +101,7 @@ function ExamplesSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>FOOTER</SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }
@@ -98,7 +120,7 @@ function ExamplesLayout() {
           mobileMenu={<div className="text-primary-foreground">Menu</div>}
           navigation={
             <div className="flex space-x-4">
-              <CustomLink to="/examples" size="lg">
+              <CustomLink to="/demo" size="lg">
                 Examples
               </CustomLink>
               <CustomLink to="/query" size="lg">

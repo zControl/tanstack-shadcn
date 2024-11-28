@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { createLazyFileRoute } from '@tanstack/react-router'
 
-export const Route = createLazyFileRoute('/(examples)/_examples/query')({
+export const Route = createLazyFileRoute('/(app)/_examples/query')({
   component: Query,
 })
 

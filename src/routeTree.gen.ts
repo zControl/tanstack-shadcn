@@ -13,116 +13,162 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as DocsImport } from './routes/_docs'
-import { Route as AuthImport } from './routes/_auth'
-import { Route as DocsDocsImport } from './routes/_docs.docs'
-import { Route as AuthDashboardImport } from './routes/_auth.dashboard'
-import { Route as examplesExamplesImport } from './routes/(examples)/_examples'
-import { Route as examplesExamplesExamplesImport } from './routes/(examples)/_examples/examples'
+import { Route as IndexImport } from './routes/index'
+import { Route as testTestImport } from './routes/(test)/test_'
+import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as authAuthImport } from './routes/(auth)/_auth'
+import { Route as appExamplesImport } from './routes/(app)/_examples'
+import { Route as testTestAImport } from './routes/(test)/test.a_'
+import { Route as authAuthDashboardImport } from './routes/(auth)/_auth.dashboard'
+import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
+import { Route as testTestABImport } from './routes/(test)/test.a.b_'
+import { Route as testTestABCImport } from './routes/(test)/test.a.b.c'
 
 // Create Virtual Routes
 
-const examplesImport = createFileRoute('/(examples)')()
-const TermsLazyImport = createFileRoute('/terms')()
-const StatusLazyImport = createFileRoute('/status')()
-const PrivacyLazyImport = createFileRoute('/privacy')()
-const IndexLazyImport = createFileRoute('/')()
-const examplesExamplesQueryLazyImport = createFileRoute(
-  '/(examples)/_examples/query',
-)()
-const examplesExamplesFormLazyImport = createFileRoute(
-  '/(examples)/_examples/form',
+const authImport = createFileRoute('/(auth)')()
+const appImport = createFileRoute('/(app)')()
+const appTermsLazyImport = createFileRoute('/(app)/terms')()
+const appStatusLazyImport = createFileRoute('/(app)/status')()
+const appPrivacyLazyImport = createFileRoute('/(app)/privacy')()
+const appExamplesQueryLazyImport = createFileRoute('/(app)/_examples/query')()
+const appExamplesFormLazyImport = createFileRoute('/(app)/_examples/form')()
+const appExamplesDemoLazyImport = createFileRoute('/(app)/_examples/demo_')()
+const appExamplesDemoBasicLazyImport = createFileRoute(
+  '/(app)/_examples/demo/basic',
 )()
 
 // Create/Update Routes
 
-const examplesRoute = examplesImport.update({
-  id: '/(examples)',
+const authRoute = authImport.update({
+  id: '/(auth)',
+  path: '/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const TermsLazyRoute = TermsLazyImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/terms.lazy').then((d) => d.Route))
-
-const StatusLazyRoute = StatusLazyImport.update({
-  id: '/status',
-  path: '/status',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/status.lazy').then((d) => d.Route))
-
-const PrivacyLazyRoute = PrivacyLazyImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/privacy.lazy').then((d) => d.Route))
-
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
+const appRoute = appImport.update({
+  id: '/(app)',
   getParentRoute: () => rootRoute,
 } as any)
 
-const DocsRoute = DocsImport.update({
-  id: '/_docs',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRoute = AuthImport.update({
-  id: '/_auth',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const DocsDocsRoute = DocsDocsImport.update({
-  id: '/docs',
-  path: '/docs',
-  getParentRoute: () => DocsRoute,
 } as any)
 
-const AuthDashboardRoute = AuthDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthRoute,
+const appTermsLazyRoute = appTermsLazyImport
+  .update({
+    id: '/terms',
+    path: '/terms',
+    getParentRoute: () => appRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/terms.lazy').then((d) => d.Route))
+
+const appStatusLazyRoute = appStatusLazyImport
+  .update({
+    id: '/status',
+    path: '/status',
+    getParentRoute: () => appRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/status.lazy').then((d) => d.Route))
+
+const appPrivacyLazyRoute = appPrivacyLazyImport
+  .update({
+    id: '/privacy',
+    path: '/privacy',
+    getParentRoute: () => appRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/privacy.lazy').then((d) => d.Route))
+
+const testTestRoute = testTestImport.update({
+  id: '/(test)/test_',
+  path: '/test',
+  getParentRoute: () => rootRoute,
 } as any)
 
-const examplesExamplesRoute = examplesExamplesImport.update({
+const authLoginRoute = authLoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => authRoute,
+} as any)
+
+const authAuthRoute = authAuthImport.update({
+  id: '/_auth',
+  getParentRoute: () => authRoute,
+} as any)
+
+const appExamplesRoute = appExamplesImport.update({
   id: '/_examples',
-  getParentRoute: () => examplesRoute,
+  getParentRoute: () => appRoute,
 } as any)
 
-const examplesExamplesQueryLazyRoute = examplesExamplesQueryLazyImport
+const appExamplesQueryLazyRoute = appExamplesQueryLazyImport
   .update({
     id: '/query',
     path: '/query',
-    getParentRoute: () => examplesExamplesRoute,
+    getParentRoute: () => appExamplesRoute,
   } as any)
   .lazy(() =>
-    import('./routes/(examples)/_examples/query.lazy').then((d) => d.Route),
+    import('./routes/(app)/_examples/query.lazy').then((d) => d.Route),
   )
 
-const examplesExamplesFormLazyRoute = examplesExamplesFormLazyImport
+const appExamplesFormLazyRoute = appExamplesFormLazyImport
   .update({
     id: '/form',
     path: '/form',
-    getParentRoute: () => examplesExamplesRoute,
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/_examples/form.lazy').then((d) => d.Route))
+
+const appExamplesDemoLazyRoute = appExamplesDemoLazyImport
+  .update({
+    id: '/demo_',
+    path: '/demo',
+    getParentRoute: () => appExamplesRoute,
   } as any)
   .lazy(() =>
-    import('./routes/(examples)/_examples/form.lazy').then((d) => d.Route),
+    import('./routes/(app)/_examples/demo_.lazy').then((d) => d.Route),
   )
 
-const examplesExamplesExamplesRoute = examplesExamplesExamplesImport.update({
-  id: '/examples',
-  path: '/examples',
-  getParentRoute: () => examplesExamplesRoute,
+const testTestARoute = testTestAImport.update({
+  id: '/(test)/test/a_',
+  path: '/test/a',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authAuthDashboardRoute = authAuthDashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => authAuthRoute,
+} as any)
+
+const appExamplesDemoBasicLazyRoute = appExamplesDemoBasicLazyImport
+  .update({
+    id: '/demo/basic',
+    path: '/demo/basic',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.basic.lazy').then((d) => d.Route),
+  )
+
+const testTestASomethingRoute = testTestASomethingImport.update({
+  id: '/(test)/test/a/something',
+  path: '/test/a/something',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const testTestABRoute = testTestABImport.update({
+  id: '/(test)/test/a/b_',
+  path: '/test/a/b',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const testTestABCRoute = testTestABCImport.update({
+  id: '/(test)/test/a/b/c',
+  path: '/test/a/b/c',
+  getParentRoute: () => rootRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -133,264 +179,336 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_auth': {
-      id: '/_auth'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthImport
+    '/(app)': {
+      id: '/(app)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appImport
       parentRoute: typeof rootRoute
     }
-    '/_docs': {
-      id: '/_docs'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof DocsImport
+    '/(app)/_examples': {
+      id: '/(app)/_examples'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appExamplesImport
+      parentRoute: typeof appRoute
+    }
+    '/(auth)': {
+      id: '/(auth)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof authImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
+    '/(auth)/_auth': {
+      id: '/(auth)/_auth'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof authAuthImport
+      parentRoute: typeof authRoute
+    }
+    '/(auth)/login': {
+      id: '/(auth)/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
+      preLoaderRoute: typeof authLoginImport
+      parentRoute: typeof authImport
+    }
+    '/(test)/test_': {
+      id: '/(test)/test_'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof testTestImport
       parentRoute: typeof rootRoute
     }
-    '/privacy': {
-      id: '/privacy'
+    '/(app)/privacy': {
+      id: '/(app)/privacy'
       path: '/privacy'
       fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof appPrivacyLazyImport
+      parentRoute: typeof appImport
     }
-    '/status': {
-      id: '/status'
+    '/(app)/status': {
+      id: '/(app)/status'
       path: '/status'
       fullPath: '/status'
-      preLoaderRoute: typeof StatusLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof appStatusLazyImport
+      parentRoute: typeof appImport
     }
-    '/terms': {
-      id: '/terms'
+    '/(app)/terms': {
+      id: '/(app)/terms'
       path: '/terms'
       fullPath: '/terms'
-      preLoaderRoute: typeof TermsLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof appTermsLazyImport
+      parentRoute: typeof appImport
     }
-    '/(examples)': {
-      id: '/(examples)'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof examplesImport
-      parentRoute: typeof rootRoute
-    }
-    '/(examples)/_examples': {
-      id: '/(examples)/_examples'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof examplesExamplesImport
-      parentRoute: typeof examplesRoute
-    }
-    '/_auth/dashboard': {
-      id: '/_auth/dashboard'
+    '/(auth)/_auth/dashboard': {
+      id: '/(auth)/_auth/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthDashboardImport
-      parentRoute: typeof AuthImport
+      preLoaderRoute: typeof authAuthDashboardImport
+      parentRoute: typeof authAuthImport
     }
-    '/_docs/docs': {
-      id: '/_docs/docs'
-      path: '/docs'
-      fullPath: '/docs'
-      preLoaderRoute: typeof DocsDocsImport
-      parentRoute: typeof DocsImport
+    '/(test)/test/a_': {
+      id: '/(test)/test/a_'
+      path: '/test/a'
+      fullPath: '/test/a'
+      preLoaderRoute: typeof testTestAImport
+      parentRoute: typeof rootRoute
     }
-    '/(examples)/_examples/examples': {
-      id: '/(examples)/_examples/examples'
-      path: '/examples'
-      fullPath: '/examples'
-      preLoaderRoute: typeof examplesExamplesExamplesImport
-      parentRoute: typeof examplesExamplesImport
+    '/(app)/_examples/demo_': {
+      id: '/(app)/_examples/demo_'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof appExamplesDemoLazyImport
+      parentRoute: typeof appExamplesImport
     }
-    '/(examples)/_examples/form': {
-      id: '/(examples)/_examples/form'
+    '/(app)/_examples/form': {
+      id: '/(app)/_examples/form'
       path: '/form'
       fullPath: '/form'
-      preLoaderRoute: typeof examplesExamplesFormLazyImport
-      parentRoute: typeof examplesExamplesImport
+      preLoaderRoute: typeof appExamplesFormLazyImport
+      parentRoute: typeof appExamplesImport
     }
-    '/(examples)/_examples/query': {
-      id: '/(examples)/_examples/query'
+    '/(app)/_examples/query': {
+      id: '/(app)/_examples/query'
       path: '/query'
       fullPath: '/query'
-      preLoaderRoute: typeof examplesExamplesQueryLazyImport
-      parentRoute: typeof examplesExamplesImport
+      preLoaderRoute: typeof appExamplesQueryLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(test)/test/a/b_': {
+      id: '/(test)/test/a/b_'
+      path: '/test/a/b'
+      fullPath: '/test/a/b'
+      preLoaderRoute: typeof testTestABImport
+      parentRoute: typeof rootRoute
+    }
+    '/(test)/test/a/something': {
+      id: '/(test)/test/a/something'
+      path: '/test/a/something'
+      fullPath: '/test/a/something'
+      preLoaderRoute: typeof testTestASomethingImport
+      parentRoute: typeof rootRoute
+    }
+    '/(app)/_examples/demo/basic': {
+      id: '/(app)/_examples/demo/basic'
+      path: '/demo/basic'
+      fullPath: '/demo/basic'
+      preLoaderRoute: typeof appExamplesDemoBasicLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(test)/test/a/b/c': {
+      id: '/(test)/test/a/b/c'
+      path: '/test/a/b/c'
+      fullPath: '/test/a/b/c'
+      preLoaderRoute: typeof testTestABCImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthRouteChildren {
-  AuthDashboardRoute: typeof AuthDashboardRoute
+interface appExamplesRouteChildren {
+  appExamplesDemoLazyRoute: typeof appExamplesDemoLazyRoute
+  appExamplesFormLazyRoute: typeof appExamplesFormLazyRoute
+  appExamplesQueryLazyRoute: typeof appExamplesQueryLazyRoute
+  appExamplesDemoBasicLazyRoute: typeof appExamplesDemoBasicLazyRoute
 }
 
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthDashboardRoute: AuthDashboardRoute,
+const appExamplesRouteChildren: appExamplesRouteChildren = {
+  appExamplesDemoLazyRoute: appExamplesDemoLazyRoute,
+  appExamplesFormLazyRoute: appExamplesFormLazyRoute,
+  appExamplesQueryLazyRoute: appExamplesQueryLazyRoute,
+  appExamplesDemoBasicLazyRoute: appExamplesDemoBasicLazyRoute,
 }
 
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
-interface DocsRouteChildren {
-  DocsDocsRoute: typeof DocsDocsRoute
-}
-
-const DocsRouteChildren: DocsRouteChildren = {
-  DocsDocsRoute: DocsDocsRoute,
-}
-
-const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
-
-interface examplesExamplesRouteChildren {
-  examplesExamplesExamplesRoute: typeof examplesExamplesExamplesRoute
-  examplesExamplesFormLazyRoute: typeof examplesExamplesFormLazyRoute
-  examplesExamplesQueryLazyRoute: typeof examplesExamplesQueryLazyRoute
-}
-
-const examplesExamplesRouteChildren: examplesExamplesRouteChildren = {
-  examplesExamplesExamplesRoute: examplesExamplesExamplesRoute,
-  examplesExamplesFormLazyRoute: examplesExamplesFormLazyRoute,
-  examplesExamplesQueryLazyRoute: examplesExamplesQueryLazyRoute,
-}
-
-const examplesExamplesRouteWithChildren =
-  examplesExamplesRoute._addFileChildren(examplesExamplesRouteChildren)
-
-interface examplesRouteChildren {
-  examplesExamplesRoute: typeof examplesExamplesRouteWithChildren
-}
-
-const examplesRouteChildren: examplesRouteChildren = {
-  examplesExamplesRoute: examplesExamplesRouteWithChildren,
-}
-
-const examplesRouteWithChildren = examplesRoute._addFileChildren(
-  examplesRouteChildren,
+const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
+  appExamplesRouteChildren,
 )
 
+interface appRouteChildren {
+  appExamplesRoute: typeof appExamplesRouteWithChildren
+  appPrivacyLazyRoute: typeof appPrivacyLazyRoute
+  appStatusLazyRoute: typeof appStatusLazyRoute
+  appTermsLazyRoute: typeof appTermsLazyRoute
+}
+
+const appRouteChildren: appRouteChildren = {
+  appExamplesRoute: appExamplesRouteWithChildren,
+  appPrivacyLazyRoute: appPrivacyLazyRoute,
+  appStatusLazyRoute: appStatusLazyRoute,
+  appTermsLazyRoute: appTermsLazyRoute,
+}
+
+const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
+
+interface authAuthRouteChildren {
+  authAuthDashboardRoute: typeof authAuthDashboardRoute
+}
+
+const authAuthRouteChildren: authAuthRouteChildren = {
+  authAuthDashboardRoute: authAuthDashboardRoute,
+}
+
+const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
+  authAuthRouteChildren,
+)
+
+interface authRouteChildren {
+  authAuthRoute: typeof authAuthRouteWithChildren
+  authLoginRoute: typeof authLoginRoute
+}
+
+const authRouteChildren: authRouteChildren = {
+  authAuthRoute: authAuthRouteWithChildren,
+  authLoginRoute: authLoginRoute,
+}
+
+const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof examplesExamplesRouteWithChildren
-  '': typeof DocsRouteWithChildren
-  '/login': typeof LoginRoute
-  '/privacy': typeof PrivacyLazyRoute
-  '/status': typeof StatusLazyRoute
-  '/terms': typeof TermsLazyRoute
-  '/dashboard': typeof AuthDashboardRoute
-  '/docs': typeof DocsDocsRoute
-  '/examples': typeof examplesExamplesExamplesRoute
-  '/form': typeof examplesExamplesFormLazyRoute
-  '/query': typeof examplesExamplesQueryLazyRoute
+  '/': typeof authAuthRouteWithChildren
+  '/login': typeof authLoginRoute
+  '/test': typeof testTestRoute
+  '/privacy': typeof appPrivacyLazyRoute
+  '/status': typeof appStatusLazyRoute
+  '/terms': typeof appTermsLazyRoute
+  '/dashboard': typeof authAuthDashboardRoute
+  '/test/a': typeof testTestARoute
+  '/demo': typeof appExamplesDemoLazyRoute
+  '/form': typeof appExamplesFormLazyRoute
+  '/query': typeof appExamplesQueryLazyRoute
+  '/test/a/b': typeof testTestABRoute
+  '/test/a/something': typeof testTestASomethingRoute
+  '/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/test/a/b/c': typeof testTestABCRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof examplesExamplesRouteWithChildren
-  '': typeof DocsRouteWithChildren
-  '/login': typeof LoginRoute
-  '/privacy': typeof PrivacyLazyRoute
-  '/status': typeof StatusLazyRoute
-  '/terms': typeof TermsLazyRoute
-  '/dashboard': typeof AuthDashboardRoute
-  '/docs': typeof DocsDocsRoute
-  '/examples': typeof examplesExamplesExamplesRoute
-  '/form': typeof examplesExamplesFormLazyRoute
-  '/query': typeof examplesExamplesQueryLazyRoute
+  '/': typeof authAuthRouteWithChildren
+  '/login': typeof authLoginRoute
+  '/test': typeof testTestRoute
+  '/privacy': typeof appPrivacyLazyRoute
+  '/status': typeof appStatusLazyRoute
+  '/terms': typeof appTermsLazyRoute
+  '/dashboard': typeof authAuthDashboardRoute
+  '/test/a': typeof testTestARoute
+  '/demo': typeof appExamplesDemoLazyRoute
+  '/form': typeof appExamplesFormLazyRoute
+  '/query': typeof appExamplesQueryLazyRoute
+  '/test/a/b': typeof testTestABRoute
+  '/test/a/something': typeof testTestASomethingRoute
+  '/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/test/a/b/c': typeof testTestABCRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/_auth': typeof AuthRouteWithChildren
-  '/_docs': typeof DocsRouteWithChildren
-  '/login': typeof LoginRoute
-  '/privacy': typeof PrivacyLazyRoute
-  '/status': typeof StatusLazyRoute
-  '/terms': typeof TermsLazyRoute
-  '/(examples)': typeof examplesRouteWithChildren
-  '/(examples)/_examples': typeof examplesExamplesRouteWithChildren
-  '/_auth/dashboard': typeof AuthDashboardRoute
-  '/_docs/docs': typeof DocsDocsRoute
-  '/(examples)/_examples/examples': typeof examplesExamplesExamplesRoute
-  '/(examples)/_examples/form': typeof examplesExamplesFormLazyRoute
-  '/(examples)/_examples/query': typeof examplesExamplesQueryLazyRoute
+  '/': typeof IndexRoute
+  '/(app)': typeof appRouteWithChildren
+  '/(app)/_examples': typeof appExamplesRouteWithChildren
+  '/(auth)': typeof authRouteWithChildren
+  '/(auth)/_auth': typeof authAuthRouteWithChildren
+  '/(auth)/login': typeof authLoginRoute
+  '/(test)/test_': typeof testTestRoute
+  '/(app)/privacy': typeof appPrivacyLazyRoute
+  '/(app)/status': typeof appStatusLazyRoute
+  '/(app)/terms': typeof appTermsLazyRoute
+  '/(auth)/_auth/dashboard': typeof authAuthDashboardRoute
+  '/(test)/test/a_': typeof testTestARoute
+  '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
+  '/(app)/_examples/form': typeof appExamplesFormLazyRoute
+  '/(app)/_examples/query': typeof appExamplesQueryLazyRoute
+  '/(test)/test/a/b_': typeof testTestABRoute
+  '/(test)/test/a/something': typeof testTestASomethingRoute
+  '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
+  '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | ''
     | '/login'
+    | '/test'
     | '/privacy'
     | '/status'
     | '/terms'
     | '/dashboard'
-    | '/docs'
-    | '/examples'
+    | '/test/a'
+    | '/demo'
     | '/form'
     | '/query'
+    | '/test/a/b'
+    | '/test/a/something'
+    | '/demo/basic'
+    | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | ''
     | '/login'
+    | '/test'
     | '/privacy'
     | '/status'
     | '/terms'
     | '/dashboard'
-    | '/docs'
-    | '/examples'
+    | '/test/a'
+    | '/demo'
     | '/form'
     | '/query'
+    | '/test/a/b'
+    | '/test/a/something'
+    | '/demo/basic'
+    | '/test/a/b/c'
   id:
     | '__root__'
     | '/'
-    | '/_auth'
-    | '/_docs'
-    | '/login'
-    | '/privacy'
-    | '/status'
-    | '/terms'
-    | '/(examples)'
-    | '/(examples)/_examples'
-    | '/_auth/dashboard'
-    | '/_docs/docs'
-    | '/(examples)/_examples/examples'
-    | '/(examples)/_examples/form'
-    | '/(examples)/_examples/query'
+    | '/(app)'
+    | '/(app)/_examples'
+    | '/(auth)'
+    | '/(auth)/_auth'
+    | '/(auth)/login'
+    | '/(test)/test_'
+    | '/(app)/privacy'
+    | '/(app)/status'
+    | '/(app)/terms'
+    | '/(auth)/_auth/dashboard'
+    | '/(test)/test/a_'
+    | '/(app)/_examples/demo_'
+    | '/(app)/_examples/form'
+    | '/(app)/_examples/query'
+    | '/(test)/test/a/b_'
+    | '/(test)/test/a/something'
+    | '/(app)/_examples/demo/basic'
+    | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  AuthRoute: typeof AuthRouteWithChildren
-  DocsRoute: typeof DocsRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  PrivacyLazyRoute: typeof PrivacyLazyRoute
-  StatusLazyRoute: typeof StatusLazyRoute
-  TermsLazyRoute: typeof TermsLazyRoute
-  examplesRoute: typeof examplesRouteWithChildren
+  IndexRoute: typeof IndexRoute
+  appRoute: typeof appRouteWithChildren
+  authRoute: typeof authRouteWithChildren
+  testTestRoute: typeof testTestRoute
+  testTestARoute: typeof testTestARoute
+  testTestABRoute: typeof testTestABRoute
+  testTestASomethingRoute: typeof testTestASomethingRoute
+  testTestABCRoute: typeof testTestABCRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  AuthRoute: AuthRouteWithChildren,
-  DocsRoute: DocsRouteWithChildren,
-  LoginRoute: LoginRoute,
-  PrivacyLazyRoute: PrivacyLazyRoute,
-  StatusLazyRoute: StatusLazyRoute,
-  TermsLazyRoute: TermsLazyRoute,
-  examplesRoute: examplesRouteWithChildren,
+  IndexRoute: IndexRoute,
+  appRoute: appRouteWithChildren,
+  authRoute: authRouteWithChildren,
+  testTestRoute: testTestRoute,
+  testTestARoute: testTestARoute,
+  testTestABRoute: testTestABRoute,
+  testTestASomethingRoute: testTestASomethingRoute,
+  testTestABCRoute: testTestABCRoute,
 }
 
 export const routeTree = rootRoute
@@ -406,76 +524,101 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_auth",
-        "/_docs",
-        "/login",
-        "/privacy",
-        "/status",
-        "/terms",
-        "/(examples)"
+        "/(app)",
+        "/(auth)",
+        "/(test)/test_",
+        "/(test)/test/a_",
+        "/(test)/test/a/b_",
+        "/(test)/test/a/something",
+        "/(test)/test/a/b/c"
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
-    "/_auth": {
-      "filePath": "_auth.tsx",
+    "/(app)": {
+      "filePath": "(app)",
       "children": [
-        "/_auth/dashboard"
+        "/(app)/_examples",
+        "/(app)/privacy",
+        "/(app)/status",
+        "/(app)/terms"
       ]
     },
-    "/_docs": {
-      "filePath": "_docs.tsx",
+    "/(app)/_examples": {
+      "filePath": "(app)/_examples.tsx",
+      "parent": "/(app)",
       "children": [
-        "/_docs/docs"
+        "/(app)/_examples/demo_",
+        "/(app)/_examples/form",
+        "/(app)/_examples/query",
+        "/(app)/_examples/demo/basic"
       ]
     },
-    "/login": {
-      "filePath": "login.tsx"
-    },
-    "/privacy": {
-      "filePath": "privacy.lazy.tsx"
-    },
-    "/status": {
-      "filePath": "status.lazy.tsx"
-    },
-    "/terms": {
-      "filePath": "terms.lazy.tsx"
-    },
-    "/(examples)": {
-      "filePath": "(examples)",
+    "/(auth)": {
+      "filePath": "(auth)",
       "children": [
-        "/(examples)/_examples"
+        "/(auth)/_auth",
+        "/(auth)/login"
       ]
     },
-    "/(examples)/_examples": {
-      "filePath": "(examples)/_examples.tsx",
-      "parent": "/(examples)",
+    "/(auth)/_auth": {
+      "filePath": "(auth)/_auth.tsx",
+      "parent": "/(auth)",
       "children": [
-        "/(examples)/_examples/examples",
-        "/(examples)/_examples/form",
-        "/(examples)/_examples/query"
+        "/(auth)/_auth/dashboard"
       ]
     },
-    "/_auth/dashboard": {
-      "filePath": "_auth.dashboard.tsx",
-      "parent": "/_auth"
+    "/(auth)/login": {
+      "filePath": "(auth)/login.tsx",
+      "parent": "/(auth)"
     },
-    "/_docs/docs": {
-      "filePath": "_docs.docs.tsx",
-      "parent": "/_docs"
+    "/(test)/test_": {
+      "filePath": "(test)/test_.tsx"
     },
-    "/(examples)/_examples/examples": {
-      "filePath": "(examples)/_examples/examples.tsx",
-      "parent": "/(examples)/_examples"
+    "/(app)/privacy": {
+      "filePath": "(app)/privacy.lazy.tsx",
+      "parent": "/(app)"
     },
-    "/(examples)/_examples/form": {
-      "filePath": "(examples)/_examples/form.lazy.tsx",
-      "parent": "/(examples)/_examples"
+    "/(app)/status": {
+      "filePath": "(app)/status.lazy.tsx",
+      "parent": "/(app)"
     },
-    "/(examples)/_examples/query": {
-      "filePath": "(examples)/_examples/query.lazy.tsx",
-      "parent": "/(examples)/_examples"
+    "/(app)/terms": {
+      "filePath": "(app)/terms.lazy.tsx",
+      "parent": "/(app)"
+    },
+    "/(auth)/_auth/dashboard": {
+      "filePath": "(auth)/_auth.dashboard.tsx",
+      "parent": "/(auth)/_auth"
+    },
+    "/(test)/test/a_": {
+      "filePath": "(test)/test.a_.tsx"
+    },
+    "/(app)/_examples/demo_": {
+      "filePath": "(app)/_examples/demo_.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/form": {
+      "filePath": "(app)/_examples/form.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/query": {
+      "filePath": "(app)/_examples/query.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(test)/test/a/b_": {
+      "filePath": "(test)/test.a.b_.tsx"
+    },
+    "/(test)/test/a/something": {
+      "filePath": "(test)/test.a.something.tsx"
+    },
+    "/(app)/_examples/demo/basic": {
+      "filePath": "(app)/_examples/demo.basic.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(test)/test/a/b/c": {
+      "filePath": "(test)/test.a.b.c.tsx"
     }
   }
 }

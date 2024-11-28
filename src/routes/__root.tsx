@@ -22,7 +22,7 @@ function RootLayout() {
   return (
     <>
       <Outlet />
-      <TanStackRouterDevtools position="bottom-left" />
+      <TanStackRouterDevtools position="bottom-right" />
       <Toaster />
     </>
   );
