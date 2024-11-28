@@ -5,16 +5,13 @@ import { CustomLink } from "@/components/ui/custom-link";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   createFileRoute,
@@ -82,7 +79,6 @@ function ExamplesSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Basics</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {basics.map((item) => (
@@ -102,42 +98,38 @@ function ExamplesSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>FOOTER</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
 }
 function ExamplesLayout() {
   return (
-    <>
-      <SidebarProvider>
-        <ExamplesSidebar />
-        <SidebarLayout
-          logo={
-            <>
-              <SidebarTrigger />
-              <AppLogo />
-            </>
-          }
-          mobileMenu={<div className="text-primary-foreground">Menu</div>}
-          navigation={
-            <div className="flex space-x-4">
-              <CustomLink to="/demo" size="lg">
-                Examples
-              </CustomLink>
-              <CustomLink to="/query" size="lg">
-                Query
-              </CustomLink>
-              <CustomLink to="/form" size="lg">
-                Form
-              </CustomLink>
-            </div>
-          }
-          actions={<div>Actions</div>}
-        >
-          <Outlet />
-        </SidebarLayout>
-      </SidebarProvider>
-    </>
+    <SidebarProvider>
+      <ExamplesSidebar />
+      <SidebarLayout
+        logo={
+          <>
+            <AppLogo />
+          </>
+        }
+        mobileMenu={<div className="text-primary-foreground">Menu</div>}
+        navigation={
+          <div className="flex space-x-4">
+            <CustomLink to="/demo" size="lg">
+              Examples
+            </CustomLink>
+            <CustomLink to="/query" size="lg">
+              Query
+            </CustomLink>
+            <CustomLink to="/form" size="lg">
+              Form
+            </CustomLink>
+          </div>
+        }
+        actions={<div>Actions</div>}
+      >
+        <Outlet />
+      </SidebarLayout>
+    </SidebarProvider>
   );
 }
