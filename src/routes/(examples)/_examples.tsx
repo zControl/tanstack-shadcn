@@ -28,9 +28,9 @@ export const Route = createFileRoute("/(examples)/_examples")({
   component: ExamplesLayout,
 });
 
-const items = [
+const basics = [
   {
-    title: "Home",
+    title: "Colors",
     url: "#",
     icon: HomeIcon,
   },
@@ -59,13 +59,13 @@ const items = [
 function ExamplesSidebar() {
   return (
     <Sidebar>
-      <SidebarHeader>HEADER</SidebarHeader>
+      <SidebarHeader>COMPONENT EXAMPLES</SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Basics</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {basics.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
