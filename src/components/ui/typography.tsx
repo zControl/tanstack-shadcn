@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
 
-const headingVariants = cva("mt-6 mb-4 pl-2", {
+const headingVariants = cva("mb-4", {
   variants: {
     color: {
       default: "text-foreground",
