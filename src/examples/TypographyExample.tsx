@@ -34,12 +34,12 @@ function HeadingsTile() {
 function ParagraphTile() {
   const code = `import { Paragraph, BlockQuote, TextBlock } from "@/components/ui/typography";
 <Paragraph>Paragraph text goes here.</Paragraph>
-<Paragraph>Paragraph text goes here.</Paragraph>
-<Paragraph>Paragraph text goes here.</Paragraph>
+<BlockQuote>Blockquote text goes here.</BlockQuote>
+<TextBlock>Textblock text goes here.</TextBlock>
 `;
   return (
     <Tile
-      title="Text Sections"
+      title="Text"
       description="Sections of text that are separated from each other.."
     >
       <Header4>Paragraph</Header4>
