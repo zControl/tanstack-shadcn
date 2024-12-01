@@ -1,3 +1,4 @@
+import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -118,16 +119,14 @@ function ButtonTile() {
   );
 }
 
+const sections = [
+  { id: "avatar", title: "Avatar", children: <AvatarTile /> },
+  { id: "badge", title: "Badge", children: <BadgeTile /> },
+  { id: "button", title: "Button", children: <ButtonTile /> },
+];
+
 const BasicExample = () => {
-  return (
-    <>
-      <div className="flex flex-col gap-4">
-        <AvatarTile />
-        <BadgeTile />
-        <ButtonTile />
-      </div>
-    </>
-  );
+  return <PageSections sections={sections} />;
 };
 
 export { BasicExample };
