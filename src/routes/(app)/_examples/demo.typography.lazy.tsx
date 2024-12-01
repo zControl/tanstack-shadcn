@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/common/PageContainer";
+import { TypographyExample } from "@/examples/TypographyExample";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/(app)/_examples/demo/typography")({
@@ -11,7 +12,7 @@ function TypographyPage() {
       title="Demo - Typography"
       description="Typography used in the app"
     >
-      Typography Demo Page
+      <TypographyExample />
     </PageContainer>
   );
 }
