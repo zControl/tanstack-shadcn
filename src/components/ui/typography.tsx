@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
-import CopyButton from "./copy-button";
 
 const headingVariants = cva("mt-6 mb-4 pl-2", {
   variants: {
@@ -98,29 +97,8 @@ const TextBlock = ({ children, className }: ParagraphProps) => {
   );
 };
 
-type CodeBlockProps = {
-  children: React.ReactNode;
-};
-
-const CodeBlock = ({ children }: CodeBlockProps) => {
-  return (
-    <>
-      <div className="relative border bg-accent p-2 max-w-96 md:max-w-2xl">
-        <CopyButton
-          content={children as string}
-          className="absolute top-2 right-2"
-        />
-        <pre className="text-small font-mono px-2 pt-6 pb-2 overflow-x-auto">
-          {children}
-        </pre>
-      </div>
-    </>
-  );
-};
-
 export {
   BlockQuote,
-  CodeBlock,
   Header1,
   Header2,
   Header3,
