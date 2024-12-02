@@ -11,8 +11,8 @@ import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { IceCream } from "lucide-react";
 
 function AvatarTile() {
-  const code = `import { Avatar } from "@/components/ui/avatar";
-<Avatar>
+  const imp = `import { Avatar } from "@/components/ui/avatar";`;
+  const code = `<Avatar>
   <AvatarImage src="/avatar-2.jpg" alt="Avatar" />
   <AvatarFallback>AZ</AvatarFallback>
 </Avatar>
@@ -27,14 +27,15 @@ function AvatarTile() {
         <AvatarFallback>AZ</AvatarFallback>
       </Avatar>
       <Separator className="my-4" />
+      <CodeBlock code={imp} />
       <CodeBlock code={code} />
     </Tile>
   );
 }
 
 function BadgeTile() {
-  const code = `import { Badge } from "@/components/ui/badge";
-<Badge>Basic</Badge>
+  const imp = `import { Badge } from "@/components/ui/badge";`;
+  const code = `<Badge>Basic</Badge>
 <Badge variant="primary">Primary</Badge>
 <Badge variant="secondary">Secondary</Badge>
 <Badge variant="destructive">Destructive</Badge>
@@ -60,14 +61,15 @@ function BadgeTile() {
         <Badge variant="error">Error</Badge>
       </div>
       <Separator className="my-4" />
+      <CodeBlock code={imp} />
       <CodeBlock code={code} />
     </Tile>
   );
 }
 
 function ButtonTile() {
-  const code = `import { Button } from "@/components/ui/button";
-<Button>Default</Button>
+  const imp = `import { Button } from "@/components/ui/button";`;
+  const code = `<Button>Default</Button>
 <Button variant="variant">ButtonText</Button>
 <Button>
   <IceCream />
@@ -77,8 +79,7 @@ function ButtonTile() {
   <Spinner />
   Disabled
 </Button>`;
-  const sizes = `import { Button } from "@/components/ui/button";
-<Button size="default">Default</Button>
+  const sizes = `<Button size="default">Default</Button>
 <Button size="icon">
   <IceCream />
 </Button>`;
@@ -103,6 +104,7 @@ function ButtonTile() {
         </Button>
       </div>
       <Separator className="my-4" />
+      <CodeBlock code={imp} />
       <CodeBlock code={code} />
       <Header4>Sizes</Header4>
       <div className="flex flex-row gap-2 mt-4">
@@ -119,10 +121,45 @@ function ButtonTile() {
   );
 }
 
+function SeparatorTile() {
+  const imp = `import { Separator } from "@/components/ui/separator";`;
+  const code = `<Separator />
+<Separator className="my-4 bg-highlight h-10" />
+<div>Blog</div>
+<Separator orientation="vertical" />
+<div>Docs</div>
+  `;
+  return (
+    <Tile title="Separator" description="A separator is a thin line.">
+      <div className="flex flex-col gap-4">
+        <p>Horizontal</p>
+        <Separator />
+        <p>Custom Styling</p>
+        <Separator className="my-4 bg-highlight h-10" />
+        <p>Vertical</p>
+        <div className="flex h-5 items-center space-x-4 text-sm">
+          <div>Blog</div>
+          <Separator orientation="vertical" />
+          <div>Docs</div>
+          <Separator orientation="vertical" />
+          <div>Source</div>
+          <Separator orientation="vertical" />
+          <p>Custom</p>
+          <Separator orientation="vertical" />
+        </div>
+      </div>
+      <Separator className="my-4" />
+      <CodeBlock code={imp} />
+      <CodeBlock code={code} />
+    </Tile>
+  );
+}
+
 const sections = [
   { id: "avatar", title: "Avatar", children: <AvatarTile /> },
   { id: "badge", title: "Badge", children: <BadgeTile /> },
   { id: "button", title: "Button", children: <ButtonTile /> },
+  { id: "separator", title: "Separator", children: <SeparatorTile /> },
 ];
 
 const BasicExample = () => {

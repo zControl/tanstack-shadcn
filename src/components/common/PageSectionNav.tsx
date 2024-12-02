@@ -16,7 +16,7 @@ const PageSectionNav = ({ sections }: PageSectionNavProps) => {
 
   const handleNavigation = (id: string) => {
     router.navigate({
-      hash: `#${id}`,
+      hash: `${id}`,
     });
   };
   return (

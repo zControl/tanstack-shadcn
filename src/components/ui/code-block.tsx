@@ -25,7 +25,7 @@ const CodeBlock = ({ code, language = "tsx" }: CodeBlockProps) => {
             style={theme === "dark" ? atomOneDark : atomOneLight}
             wrapLines={true}
             wrapLongLines={true}
-            showLineNumbers={true}
+            showLineNumbers={false}
             showInlineLineNumbers={false}
           >
             {code}
