@@ -26,7 +26,10 @@ import {
   ComponentIcon,
   HomeIcon,
   LetterTextIcon,
+  LoaderPinwheelIcon,
   PaletteIcon,
+  ShipWheelIcon,
+  Table2Icon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
@@ -61,14 +64,29 @@ const basics = [
     icon: BoxIcon,
   },
   {
-    title: "Modals",
-    url: "/demo/modals",
+    title: "Loaders",
+    url: "/demo/loaders",
+    icon: LoaderPinwheelIcon,
+  },
+  {
+    title: "Navigation",
+    url: "/demo/navigation",
+    icon: ShipWheelIcon,
+  },
+  {
+    title: "Dialogs",
+    url: "/demo/dialogs",
     icon: AppWindowIcon,
   },
   {
     title: "Forms",
     url: "/demo/forms",
     icon: BookTextIcon,
+  },
+  {
+    title: "Tables",
+    url: "/demo/tables",
+    icon: Table2Icon,
   },
 ];
 

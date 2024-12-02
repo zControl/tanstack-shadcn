@@ -21,8 +21,8 @@ const PageSectionNav = ({ sections }: PageSectionNavProps) => {
   };
   return (
     <nav className="px-4 py-2">
-      <p className="text-left text-sm font-semibold">On this page</p>
-      <ul className="space-y-2">
+      <p className="text-left text-sm font-semibold mb-2">On this page</p>
+      <ul>
         {sections.map((section) => (
           <li key={section.id}>
             <Button

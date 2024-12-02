@@ -1,3 +1,4 @@
+import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
@@ -67,13 +68,13 @@ function ParagraphTile() {
   );
 }
 
+const sections = [
+  { id: "headings", title: "Headings", children: <HeadingsTile /> },
+  { id: "paragraph", title: "Paragraph", children: <ParagraphTile /> },
+];
+
 const TypographyExample = () => {
-  return (
-    <>
-      <HeadingsTile />
-      <ParagraphTile />
-    </>
-  );
+  return <PageSections sections={sections} />;
 };
 
 export { TypographyExample };

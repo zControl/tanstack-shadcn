@@ -22,6 +22,7 @@ import { Route as testTestAImport } from './routes/(test)/test.a_'
 import { Route as authAuthDashboardImport } from './routes/(auth)/_auth.dashboard'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
+import { Route as appExamplesDemoDialogsImport } from './routes/(app)/_examples/demo.dialogs'
 import { Route as testTestABCImport } from './routes/(test)/test.a.b.c'
 
 // Create Virtual Routes
@@ -36,6 +37,21 @@ const appExamplesFormLazyImport = createFileRoute('/(app)/_examples/form')()
 const appExamplesDemoLazyImport = createFileRoute('/(app)/_examples/demo_')()
 const appExamplesDemoTypographyLazyImport = createFileRoute(
   '/(app)/_examples/demo/typography',
+)()
+const appExamplesDemoTablesLazyImport = createFileRoute(
+  '/(app)/_examples/demo/tables',
+)()
+const appExamplesDemoNavigationLazyImport = createFileRoute(
+  '/(app)/_examples/demo/navigation',
+)()
+const appExamplesDemoLoadersLazyImport = createFileRoute(
+  '/(app)/_examples/demo/loaders',
+)()
+const appExamplesDemoFormsLazyImport = createFileRoute(
+  '/(app)/_examples/demo/forms',
+)()
+const appExamplesDemoContainersLazyImport = createFileRoute(
+  '/(app)/_examples/demo/containers',
 )()
 const appExamplesDemoColorsLazyImport = createFileRoute(
   '/(app)/_examples/demo/colors',
@@ -161,6 +177,60 @@ const appExamplesDemoTypographyLazyRoute = appExamplesDemoTypographyLazyImport
     ),
   )
 
+const appExamplesDemoTablesLazyRoute = appExamplesDemoTablesLazyImport
+  .update({
+    id: '/demo/tables',
+    path: '/demo/tables',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.tables.lazy').then((d) => d.Route),
+  )
+
+const appExamplesDemoNavigationLazyRoute = appExamplesDemoNavigationLazyImport
+  .update({
+    id: '/demo/navigation',
+    path: '/demo/navigation',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.navigation.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const appExamplesDemoLoadersLazyRoute = appExamplesDemoLoadersLazyImport
+  .update({
+    id: '/demo/loaders',
+    path: '/demo/loaders',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.loaders.lazy').then((d) => d.Route),
+  )
+
+const appExamplesDemoFormsLazyRoute = appExamplesDemoFormsLazyImport
+  .update({
+    id: '/demo/forms',
+    path: '/demo/forms',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.forms.lazy').then((d) => d.Route),
+  )
+
+const appExamplesDemoContainersLazyRoute = appExamplesDemoContainersLazyImport
+  .update({
+    id: '/demo/containers',
+    path: '/demo/containers',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/demo.containers.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const appExamplesDemoColorsLazyRoute = appExamplesDemoColorsLazyImport
   .update({
     id: '/demo/colors',
@@ -191,6 +261,12 @@ const testTestABRoute = testTestABImport.update({
   id: '/(test)/test/a/b_',
   path: '/test/a/b',
   getParentRoute: () => rootRoute,
+} as any)
+
+const appExamplesDemoDialogsRoute = appExamplesDemoDialogsImport.update({
+  id: '/demo/dialogs',
+  path: '/demo/dialogs',
+  getParentRoute: () => appExamplesRoute,
 } as any)
 
 const testTestABCRoute = testTestABCImport.update({
@@ -308,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesQueryLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_examples/demo/dialogs': {
+      id: '/(app)/_examples/demo/dialogs'
+      path: '/demo/dialogs'
+      fullPath: '/demo/dialogs'
+      preLoaderRoute: typeof appExamplesDemoDialogsImport
+      parentRoute: typeof appExamplesImport
+    }
     '/(test)/test/a/b_': {
       id: '/(test)/test/a/b_'
       path: '/test/a/b'
@@ -336,6 +419,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesDemoColorsLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_examples/demo/containers': {
+      id: '/(app)/_examples/demo/containers'
+      path: '/demo/containers'
+      fullPath: '/demo/containers'
+      preLoaderRoute: typeof appExamplesDemoContainersLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(app)/_examples/demo/forms': {
+      id: '/(app)/_examples/demo/forms'
+      path: '/demo/forms'
+      fullPath: '/demo/forms'
+      preLoaderRoute: typeof appExamplesDemoFormsLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(app)/_examples/demo/loaders': {
+      id: '/(app)/_examples/demo/loaders'
+      path: '/demo/loaders'
+      fullPath: '/demo/loaders'
+      preLoaderRoute: typeof appExamplesDemoLoadersLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(app)/_examples/demo/navigation': {
+      id: '/(app)/_examples/demo/navigation'
+      path: '/demo/navigation'
+      fullPath: '/demo/navigation'
+      preLoaderRoute: typeof appExamplesDemoNavigationLazyImport
+      parentRoute: typeof appExamplesImport
+    }
+    '/(app)/_examples/demo/tables': {
+      id: '/(app)/_examples/demo/tables'
+      path: '/demo/tables'
+      fullPath: '/demo/tables'
+      preLoaderRoute: typeof appExamplesDemoTablesLazyImport
+      parentRoute: typeof appExamplesImport
+    }
     '/(app)/_examples/demo/typography': {
       id: '/(app)/_examples/demo/typography'
       path: '/demo/typography'
@@ -359,8 +477,14 @@ interface appExamplesRouteChildren {
   appExamplesDemoLazyRoute: typeof appExamplesDemoLazyRoute
   appExamplesFormLazyRoute: typeof appExamplesFormLazyRoute
   appExamplesQueryLazyRoute: typeof appExamplesQueryLazyRoute
+  appExamplesDemoDialogsRoute: typeof appExamplesDemoDialogsRoute
   appExamplesDemoBasicLazyRoute: typeof appExamplesDemoBasicLazyRoute
   appExamplesDemoColorsLazyRoute: typeof appExamplesDemoColorsLazyRoute
+  appExamplesDemoContainersLazyRoute: typeof appExamplesDemoContainersLazyRoute
+  appExamplesDemoFormsLazyRoute: typeof appExamplesDemoFormsLazyRoute
+  appExamplesDemoLoadersLazyRoute: typeof appExamplesDemoLoadersLazyRoute
+  appExamplesDemoNavigationLazyRoute: typeof appExamplesDemoNavigationLazyRoute
+  appExamplesDemoTablesLazyRoute: typeof appExamplesDemoTablesLazyRoute
   appExamplesDemoTypographyLazyRoute: typeof appExamplesDemoTypographyLazyRoute
 }
 
@@ -368,8 +492,14 @@ const appExamplesRouteChildren: appExamplesRouteChildren = {
   appExamplesDemoLazyRoute: appExamplesDemoLazyRoute,
   appExamplesFormLazyRoute: appExamplesFormLazyRoute,
   appExamplesQueryLazyRoute: appExamplesQueryLazyRoute,
+  appExamplesDemoDialogsRoute: appExamplesDemoDialogsRoute,
   appExamplesDemoBasicLazyRoute: appExamplesDemoBasicLazyRoute,
   appExamplesDemoColorsLazyRoute: appExamplesDemoColorsLazyRoute,
+  appExamplesDemoContainersLazyRoute: appExamplesDemoContainersLazyRoute,
+  appExamplesDemoFormsLazyRoute: appExamplesDemoFormsLazyRoute,
+  appExamplesDemoLoadersLazyRoute: appExamplesDemoLoadersLazyRoute,
+  appExamplesDemoNavigationLazyRoute: appExamplesDemoNavigationLazyRoute,
+  appExamplesDemoTablesLazyRoute: appExamplesDemoTablesLazyRoute,
   appExamplesDemoTypographyLazyRoute: appExamplesDemoTypographyLazyRoute,
 }
 
@@ -429,10 +559,16 @@ export interface FileRoutesByFullPath {
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
   '/query': typeof appExamplesQueryLazyRoute
+  '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
   '/demo/colors': typeof appExamplesDemoColorsLazyRoute
+  '/demo/containers': typeof appExamplesDemoContainersLazyRoute
+  '/demo/forms': typeof appExamplesDemoFormsLazyRoute
+  '/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
+  '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
+  '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
@@ -449,10 +585,16 @@ export interface FileRoutesByTo {
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
   '/query': typeof appExamplesQueryLazyRoute
+  '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
   '/demo/colors': typeof appExamplesDemoColorsLazyRoute
+  '/demo/containers': typeof appExamplesDemoContainersLazyRoute
+  '/demo/forms': typeof appExamplesDemoFormsLazyRoute
+  '/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
+  '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
+  '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
@@ -474,10 +616,16 @@ export interface FileRoutesById {
   '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
   '/(app)/_examples/form': typeof appExamplesFormLazyRoute
   '/(app)/_examples/query': typeof appExamplesQueryLazyRoute
+  '/(app)/_examples/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
   '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
   '/(app)/_examples/demo/colors': typeof appExamplesDemoColorsLazyRoute
+  '/(app)/_examples/demo/containers': typeof appExamplesDemoContainersLazyRoute
+  '/(app)/_examples/demo/forms': typeof appExamplesDemoFormsLazyRoute
+  '/(app)/_examples/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
+  '/(app)/_examples/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
+  '/(app)/_examples/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/(app)/_examples/demo/typography': typeof appExamplesDemoTypographyLazyRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
@@ -496,10 +644,16 @@ export interface FileRouteTypes {
     | '/demo'
     | '/form'
     | '/query'
+    | '/demo/dialogs'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
     | '/demo/colors'
+    | '/demo/containers'
+    | '/demo/forms'
+    | '/demo/loaders'
+    | '/demo/navigation'
+    | '/demo/tables'
     | '/demo/typography'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
@@ -515,10 +669,16 @@ export interface FileRouteTypes {
     | '/demo'
     | '/form'
     | '/query'
+    | '/demo/dialogs'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
     | '/demo/colors'
+    | '/demo/containers'
+    | '/demo/forms'
+    | '/demo/loaders'
+    | '/demo/navigation'
+    | '/demo/tables'
     | '/demo/typography'
     | '/test/a/b/c'
   id:
@@ -538,10 +698,16 @@ export interface FileRouteTypes {
     | '/(app)/_examples/demo_'
     | '/(app)/_examples/form'
     | '/(app)/_examples/query'
+    | '/(app)/_examples/demo/dialogs'
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
     | '/(app)/_examples/demo/basic'
     | '/(app)/_examples/demo/colors'
+    | '/(app)/_examples/demo/containers'
+    | '/(app)/_examples/demo/forms'
+    | '/(app)/_examples/demo/loaders'
+    | '/(app)/_examples/demo/navigation'
+    | '/(app)/_examples/demo/tables'
     | '/(app)/_examples/demo/typography'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
@@ -610,8 +776,14 @@ export const routeTree = rootRoute
         "/(app)/_examples/demo_",
         "/(app)/_examples/form",
         "/(app)/_examples/query",
+        "/(app)/_examples/demo/dialogs",
         "/(app)/_examples/demo/basic",
         "/(app)/_examples/demo/colors",
+        "/(app)/_examples/demo/containers",
+        "/(app)/_examples/demo/forms",
+        "/(app)/_examples/demo/loaders",
+        "/(app)/_examples/demo/navigation",
+        "/(app)/_examples/demo/tables",
         "/(app)/_examples/demo/typography"
       ]
     },
@@ -667,6 +839,10 @@ export const routeTree = rootRoute
       "filePath": "(app)/_examples/query.lazy.tsx",
       "parent": "/(app)/_examples"
     },
+    "/(app)/_examples/demo/dialogs": {
+      "filePath": "(app)/_examples/demo.dialogs.tsx",
+      "parent": "/(app)/_examples"
+    },
     "/(test)/test/a/b_": {
       "filePath": "(test)/test.a.b_.tsx"
     },
@@ -679,6 +855,26 @@ export const routeTree = rootRoute
     },
     "/(app)/_examples/demo/colors": {
       "filePath": "(app)/_examples/demo.colors.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/containers": {
+      "filePath": "(app)/_examples/demo.containers.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/forms": {
+      "filePath": "(app)/_examples/demo.forms.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/loaders": {
+      "filePath": "(app)/_examples/demo.loaders.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/navigation": {
+      "filePath": "(app)/_examples/demo.navigation.lazy.tsx",
+      "parent": "/(app)/_examples"
+    },
+    "/(app)/_examples/demo/tables": {
+      "filePath": "(app)/_examples/demo.tables.lazy.tsx",
       "parent": "/(app)/_examples"
     },
     "/(app)/_examples/demo/typography": {
