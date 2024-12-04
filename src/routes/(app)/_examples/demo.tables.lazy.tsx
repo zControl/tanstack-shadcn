@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/common/PageContainer";
+import { TableExample } from "@/examples/TableExample";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/(app)/_examples/demo/tables")({
@@ -11,7 +12,7 @@ function DemoTablesPage() {
       title="Demo - Tables"
       description="Tables are used to display data in a tabular format."
     >
-      <div>Table Examples</div>
+      <TableExample />
     </PageContainer>
   );
 }
