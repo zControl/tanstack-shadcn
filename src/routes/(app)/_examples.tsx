@@ -24,6 +24,7 @@ import {
   BookTextIcon,
   BoxIcon,
   ComponentIcon,
+  DatabaseIcon,
   HomeIcon,
   LetterTextIcon,
   LoaderPinwheelIcon,
@@ -87,6 +88,11 @@ const basics = [
     title: "Tables",
     url: "/demo/tables",
     icon: Table2Icon,
+  },
+  {
+    title: "Database",
+    url: "/demo/database",
+    icon: DatabaseIcon,
   },
 ];
 
