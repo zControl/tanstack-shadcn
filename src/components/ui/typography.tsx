@@ -81,7 +81,7 @@ const Paragraph = ({ children, className }: ParagraphProps) => {
 
 const BlockQuote = ({ children, className }: ParagraphProps) => {
   const baseClasses =
-    "p-4 my-4 border-s-4 border bg-accent/80 text-accent-foreground max-w-2xl flex text-left items-center";
+    "p-4 my-4 border-s-4 border bg-accent/80 text-accent-foreground max-w-2xl flex text-left overflow-auto items-center";
   return (
     <blockquote className={cn(className, baseClasses)}>{children}</blockquote>
   );
