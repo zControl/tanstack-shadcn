@@ -10,13 +10,13 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between space-x-2">
       <Input
         placeholder="Search..."
         className="max-w-sm"
-        value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
+        value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
-          table.getColumn("firstName")?.setFilterValue(event.target.value)
+          table.getColumn("name")?.setFilterValue(event.target.value)
         }
       />
       <Button onClick={() => console.log(table.getFilteredRowModel().rows)}>

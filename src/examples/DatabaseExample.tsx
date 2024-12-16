@@ -92,26 +92,99 @@ const handleRefresh = () => {
   );
 }
 
-interface ExampleDataType {
+interface FullDataType {
+  id: string;
+  name: string;
+  count: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface SummaryDataType {
   name: string;
   count: number;
   isActive: boolean;
 }
 
 function TableFromDatabase() {
+  const apiClient = createApiClient("http://localhost:3000/v1/");
+
+  const { isPending, isFetching, isError, data, error } = useQuery<
+    FullDataType[]
+  >({
+    queryKey: ["ExampleFull"],
+    queryFn: async () => apiClient.get("example"),
+  });
+  return (
+    <Tile
+      title="Get Data from Database"
+      description="Use API endpoints to get, update, and delete data from the database."
+    >
+      {isPending && <Spinner size="lg" />}
+      {isError && (
+        <div>An error has occurred: {error?.message || "Unknown error"}</div>
+      )}
+      {!isError && !isPending && !isFetching && (
+        <DataTableCore
+          columns={[
+            {
+              header: "Id",
+              accessorKey: "id",
+            },
+            {
+              header: "Name",
+              accessorKey: "name",
+            },
+            {
+              header: "Count",
+              accessorKey: "count",
+            },
+            {
+              header: "Price",
+              accessorKey: "price",
+            },
+            {
+              header: "Active",
+              accessorKey: "isActive",
+            },
+            {
+              header: "Meta Data",
+              accessorKey: "metadata",
+            },
+            {
+              header: "Created At",
+              accessorKey: "createdAt",
+            },
+            {
+              header: "Updated At",
+              accessorKey: "updatedAt",
+            },
+          ]}
+          data={data || []}
+          toolbar={<>tools</>}
+          caption="This data comes from database, via custom DTO, reusable apiClient, and react-query!"
+        />
+      )}
+    </Tile>
+  );
+}
+
+function SummaryTableWithCustomDataShape() {
   const apiClient = createApiClient("http://localhost:3000/v1/example");
 
   const { isPending, isFetching, isError, data, error } = useQuery<
-    ExampleDataType[]
+    SummaryDataType[]
   >({
     queryKey: ["ExampleSummaries"],
     queryFn: async () => apiClient.get("summaries"),
   });
   return (
     <Tile
-      title="Table from Database"
-      description="Call the API to get data from a database and put it in a table."
+      title="Custom DTO data shape"
+      description="Using a custom DTO, we can get only the data that we need instead of the full object."
     >
+      <Header4>Custom data shape using dto.</Header4>
       {isPending && <Spinner size="lg" />}
       {isError && (
         <div>An error has occurred: {error?.message || "Unknown error"}</div>
@@ -151,6 +224,11 @@ const sections = [
     id: "database-data-from-button",
     title: "Database Data From Button",
     children: <TableFromDatabase />,
+  },
+  {
+    id: "database-custom-dto",
+    title: "Database Custom DTO",
+    children: <SummaryTableWithCustomDataShape />,
   },
 ];
 const DatabaseExample = () => {

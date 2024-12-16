@@ -77,7 +77,7 @@ const DataTableCore = <TData, TValue>({
   };
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border space-y-2">
       <div className="flex items-center justify-between p-2">
         <div>{renderedToolbar}</div>
         <DataTableViewOptions table={table} />
