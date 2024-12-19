@@ -87,7 +87,9 @@ const DataTableCore = <TData, TValue>({
         <TableBody>{renderTableBody(table)}</TableBody>
         <TableCaption>{caption}</TableCaption>
       </Table>
-      <DataTablePagination table={table} />
+      {table.getFilteredRowModel().rows.length > 5 && (
+        <DataTablePagination table={table} />
+      )}
     </div>
   );
 };

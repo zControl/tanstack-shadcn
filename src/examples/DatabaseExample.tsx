@@ -156,7 +156,7 @@ function TableFromDatabase() {
             },
           ]}
           data={data || []}
-          toolbar={<>tools</>}
+          toolbar={(table) => <DataTableToolbar table={table} />}
           caption="Complete data set from the database"
         />
       )}
@@ -221,13 +221,13 @@ const sections = [
     children: <CheckApiStatus />,
   },
   {
-    id: "database-data-from-button",
-    title: "Database Data From Button",
+    id: "datatable-full",
+    title: "Full Datatable",
     children: <TableFromDatabase />,
   },
   {
     id: "database-custom-dto",
-    title: "Database Custom DTO",
+    title: "Custom Shape Datatable",
     children: <SummaryTableWithCustomDataShape />,
   },
 ];
