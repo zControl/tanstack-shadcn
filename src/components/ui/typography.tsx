@@ -58,6 +58,24 @@ const Header4 = ({ children, className, color }: HeadingProps) => {
   );
 };
 
+const SectionTitle = ({ children, className, color }: HeadingProps) => {
+  const baseClasses = "pt-2 font-semibold leading-none tracking-tight";
+  return (
+    <div className={cn(headingVariants({ color, className }), baseClasses)}>
+      {children}
+    </div>
+  );
+};
+
+const SectionDescription = ({ children, className, color }: HeadingProps) => {
+  const baseClasses = "pb-4 text-sm text-muted-foreground";
+  return (
+    <div className={cn(headingVariants({ color, className }), baseClasses)}>
+      {children}
+    </div>
+  );
+};
+
 type LinkTextProps = {
   children: React.ReactNode;
   className?: string;
@@ -105,5 +123,7 @@ export {
   Header4,
   LinkText,
   Paragraph,
+  SectionDescription,
+  SectionTitle,
   TextBlock,
 };
