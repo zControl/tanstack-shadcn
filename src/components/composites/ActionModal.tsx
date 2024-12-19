@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-interface ConfirmActionModalProps {
+interface ActionModalProps {
   trigger: string;
   title: string;
   description: string;
@@ -19,17 +19,17 @@ interface ConfirmActionModalProps {
   onCancel: () => void;
   onConfirm: () => void;
 }
-const ConfirmActionModal = ({
+const ActionModal = ({
   trigger,
   title,
   description,
   children,
   onCancel,
   onConfirm,
-}: ConfirmActionModalProps) => {
+}: ActionModalProps) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
         <Button variant="outline">{trigger}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -47,4 +47,4 @@ const ConfirmActionModal = ({
   );
 };
 
-export { ConfirmActionModal };
+export { ActionModal };
