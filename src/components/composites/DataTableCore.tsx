@@ -2,13 +2,15 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
-  type Table as TableType,
+  type Table as ReactTable,
 } from "@tanstack/react-table";
 
-import { DataTablePagination } from "@/components/data/DataTablePagination";
-import { DataTableViewOptions } from "@/components/data/DataTableViewOptions";
+import { DataTablePagination } from "@/components/composites/DataTablePagination";
+import { DataTableViewOptions } from "@/components/composites/DataTableViewOptions";
 import {
   Table,
   TableBody,
@@ -22,7 +24,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  toolbar?: React.ReactNode | ((table: TableType<TData>) => React.ReactNode);
+  toolbar?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   caption?: string;
 }
 
@@ -37,12 +39,14 @@ const DataTableCore = <TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   const renderedToolbar =
     typeof toolbar === "function" ? toolbar(table) : toolbar;
 
-  const renderTableHeader = (table: TableType<TData>) => {
+  const renderTableHeader = (table: ReactTable<TData>) => {
     return table.getHeaderGroups().map((headerGroup) => (
       <TableRow key={headerGroup.id}>
         {headerGroup.headers.map((header) => (
@@ -56,7 +60,7 @@ const DataTableCore = <TData, TValue>({
     ));
   };
 
-  const renderTableBody = (table: TableType<TData>) => {
+  const renderTableBody = (table: ReactTable<TData>) => {
     return table.getRowModel().rows?.length ? (
       table.getRowModel().rows.map((row) => (
         <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
@@ -87,9 +91,7 @@ const DataTableCore = <TData, TValue>({
         <TableBody>{renderTableBody(table)}</TableBody>
         <TableCaption>{caption}</TableCaption>
       </Table>
-      {table.getFilteredRowModel().rows.length > 5 && (
-        <DataTablePagination table={table} />
-      )}
+      <DataTablePagination table={table} />
     </div>
   );
 };

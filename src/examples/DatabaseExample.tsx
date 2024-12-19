@@ -1,6 +1,8 @@
 import { PageSections } from "@/components/common/PageSections";
+import { DataTableCore } from "@/components/composites/DataTableCore";
+import { DataTableFilterHeader } from "@/components/composites/DataTableFilterHeader";
+import { DataTableSortHeader } from "@/components/composites/DataTableSortHeader";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableCore } from "@/components/data/DataTableCore";
 import { DataTableToolbar } from "@/components/data/DataTableToolbar";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";
@@ -10,7 +12,8 @@ import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
 import { createApiClient } from "@/utils/apiClient";
 import { formatDate } from "@/utils/dateUtils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { CloudDownloadIcon } from "lucide-react";
+import { Column } from "@tanstack/react-table";
+import { CloudDownloadIcon, PlusIcon } from "lucide-react";
 
 function CheckApiStatus() {
   const imp = `import { createApiClient } from "@/utils/apiClient";
@@ -118,6 +121,48 @@ function TableFromDatabase() {
       })),
   });
 
+  const columns = [
+    {
+      accessorKey: "name",
+      header: ({ column }: { column: Column<FullDataType, string> }) => (
+        <DataTableFilterHeader column={column} title="Name" />
+      ),
+    },
+    {
+      header: ({ column }: { column: Column<FullDataType, string> }) => (
+        <DataTableSortHeader column={column} title="Count" />
+      ),
+      accessorKey: "count",
+      sortingFns: "alphanumeric",
+    },
+    {
+      header: "Price",
+      accessorKey: "price",
+    },
+    {
+      header: "Active",
+      accessorKey: "isActive",
+    },
+    {
+      header: "Created At",
+      accessorKey: "createdAt",
+    },
+    {
+      header: "Updated At",
+      accessorKey: "updatedAt",
+    },
+  ];
+
+  const toolbar = () => {
+    return (
+      <div className="flex items-center space-x-2">
+        <Button>
+          <PlusIcon size="lg" />
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <Tile
       title="Datatable from backend database"
@@ -129,35 +174,10 @@ function TableFromDatabase() {
       )}
       {!isError && !isPending && !isFetching && (
         <DataTableCore
-          columns={[
-            {
-              header: "Name",
-              accessorKey: "name",
-            },
-            {
-              header: "Count",
-              accessorKey: "count",
-            },
-            {
-              header: "Price",
-              accessorKey: "price",
-            },
-            {
-              header: "Active",
-              accessorKey: "isActive",
-            },
-            {
-              header: "Created At",
-              accessorKey: "createdAt",
-            },
-            {
-              header: "Updated At",
-              accessorKey: "updatedAt",
-            },
-          ]}
+          columns={columns}
           data={data || []}
-          toolbar={(table) => <DataTableToolbar table={table} />}
-          caption="Complete data set from the database"
+          toolbar={toolbar}
+          caption="Complete data set from the database, with formatted dates."
         />
       )}
     </Tile>

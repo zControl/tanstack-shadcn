@@ -1,6 +1,6 @@
 import { PageSections } from "@/components/common/PageSections";
+import { DataTableCore } from "@/components/composites/DataTableCore";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableCore } from "@/components/data/DataTableCore";
 import { DataTableToolbar } from "@/components/data/DataTableToolbar";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
