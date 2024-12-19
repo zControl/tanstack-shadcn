@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
 import { createApiClient } from "@/utils/apiClient";
+import { formatDate } from "@/utils/dateUtils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 
@@ -101,12 +102,6 @@ interface FullDataType {
   updatedAt: string;
 }
 
-interface SummaryDataType {
-  name: string;
-  count: number;
-  isActive: boolean;
-}
-
 function TableFromDatabase() {
   const apiClient = createApiClient("http://localhost:3000/v1/");
 
@@ -115,11 +110,18 @@ function TableFromDatabase() {
   >({
     queryKey: ["ExampleFull"],
     queryFn: async () => apiClient.get("example"),
+    select: (data: FullDataType[]) =>
+      data.map((item) => ({
+        ...item,
+        createdAt: formatDate(item.createdAt),
+        updatedAt: formatDate(item.updatedAt),
+      })),
   });
+
   return (
     <Tile
-      title="Get Data from Database"
-      description="Use API endpoints to get, update, and delete data from the database."
+      title="Datatable from backend database"
+      description="Use API endpoints to get, add, update, and delete data from the database."
     >
       {isPending && <Spinner size="lg" />}
       {isError && (
@@ -128,10 +130,6 @@ function TableFromDatabase() {
       {!isError && !isPending && !isFetching && (
         <DataTableCore
           columns={[
-            {
-              header: "Id",
-              accessorKey: "id",
-            },
             {
               header: "Name",
               accessorKey: "name",
@@ -149,10 +147,6 @@ function TableFromDatabase() {
               accessorKey: "isActive",
             },
             {
-              header: "Meta Data",
-              accessorKey: "metadata",
-            },
-            {
               header: "Created At",
               accessorKey: "createdAt",
             },
@@ -163,11 +157,17 @@ function TableFromDatabase() {
           ]}
           data={data || []}
           toolbar={<>tools</>}
-          caption="This data comes from database, via custom DTO, reusable apiClient, and react-query!"
+          caption="Complete data set from the database"
         />
       )}
     </Tile>
   );
+}
+
+interface SummaryDataType {
+  name: string;
+  count: number;
+  isActive: boolean;
 }
 
 function SummaryTableWithCustomDataShape() {
